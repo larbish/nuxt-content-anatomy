@@ -22,7 +22,7 @@ The page is static. It describes fixed revisions and does not fetch anything at 
 
 | Code | Revision |
 | --- | --- |
-| `nuxt/content-v4-temp`, branch `v4` | `30efe01` |
+| `nuxt/content-v4-temp`, branch `v4` | `d48d094` (#60, #61, #63) |
 | Draft PR #42, `feat/live-surfaces` | `3744e90` |
 | comark-content v0.6.2 (private, comarkdown org) | `e0a3214` |
 | comark-docs | `a3ebf99` |
@@ -32,13 +32,13 @@ The page is built from Baptiste's write-up "Nuxt Content v4: architecture and be
 
 The page shows v4 behaviour only. The v3 compat layer appears as dashed grey blocks with a red badge, and draft #42 as dashed darker-grey blocks with a blue badge; #42 is explained in its own tab.
 
-Draft PR #60 (`feat/app-content`) was intentionally left out.
+PR #60 (`app/content.ts`), #61 (layer `server/content.ts`) and #63 (hybrid deadlock fix, comark-content 0.6.2) are merged into `v4` and shown as v4 behaviour. `app/content.ts` has its own entry brick (`appentry`).
 
 ## 3. Structure
 
 There are five tabs. Their state is stored in `location.hash` and `localStorage['nc-anatomy-tab']` (the old `#refs` hash maps to `#live`).
 
-1. **Global overview:** nested bricks. The Nuxt app holds the entry bricks, then `createNuxtContent()`, then the comark-content instance. Next to them are boxes for the Nitro server, Build output, App side and Dev.
+1. **Global overview:** nested bricks. The Nuxt app holds the entry bricks (`server/content.ts`, `app/content.ts`, module options, and the two compat entries), then `createNuxtContent()`, then the comark-content instance. Next to them are boxes for the Nitro server, Build output, App side and Dev.
 2. **A read, step by step:** a step-through timeline with five lanes (Browser, App content, Nitro route, Instance, Artifacts · cache) in two modes: `server-only` and `hybrid`. Each mode has "what if" cards.
 3. **Manifest & snapshot:** a comparison table with a v3 SQL-dump column, a lifecycle timeline, and rule cards.
 4. **Live mode in #42:** the PR's state, v4 vs #42 formulas, a live read step-through, the stamped-snapshot build timeline, `withRef()` cards, what #42 adds, what it changes in existing v4 blocks (built from each brick's `br.pr42`), and limits.
@@ -74,5 +74,5 @@ Everything is in one IIFE at the end of `index.html`.
 
 ## 6. Open points
 
-- PR states change fast. Re-check #42 and open PR #61 (layer lookup for `server/content.ts`) before relying on the page.
+- PR states change fast. Re-check #42, and open PRs #58 (typed `createNuxtContent()`) and #62 (build-time values in `server/content.ts`), before relying on the page.
 - The comark-content details come from the write-up's v0.6.2 links, because the repo is private.
