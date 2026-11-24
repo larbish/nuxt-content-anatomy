@@ -243,7 +243,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
       <span class="rt" data-tip="rt_browser">Browser</span>
       <span class="rt" data-tip="rt_dev">Dev</span>
     </div></div>
-    <p class="lg-note">Static page: built from your recap and the local checkout on 23 Nov 2026. v3 is <code>@nuxt/content</code> 3.17.0 at <code>3c49cff</code>. PR states may have moved since.</p>
+    <p class="lg-note">Static page: built from your recap and the local checkout on 23 Nov 2026, updated to <code>v4</code> @ d48d094 (#60, #61, #63) on 24 Nov. v3 is <code>@nuxt/content</code> 3.17.0 at <code>3c49cff</code>. PR states may have moved since.</p>
   </div>
 
   <div class="layout">
@@ -251,11 +251,12 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
       <!-- 1 · Overview -->
       <section class="screen" id="screen-overview" hidden>
         <div class="box app">
-          <div class="box-h"><span class="nm">Nuxt app</span><span class="api">@nuxt/content v4 module</span><span class="card">1 content entry</span></div>
+          <div class="box-h"><span class="nm">Nuxt app</span><span class="api">@nuxt/content v4 module</span><span class="card">server + app entries</span></div>
           <div class="box-b">
             <div class="sub">Entry</div>
             <div class="grid">
               <button class="brick" data-id="entry"></button>
+              <button class="brick" data-id="appentry"></button>
               <button class="brick" data-id="options"></button>
             </div>
             <div class="grid">
@@ -356,7 +357,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
       <section class="screen" id="screen-live" hidden>
         <div class="livehead">
           <div class="meta" style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge o-pr" data-tip="o_pr">#42 live mode</span><span class="badge o-neutral">draft · checks green · no review</span></div>
-          <p><b>Draft PR #42 (<code>feat/live-surfaces</code>, 3744e90)</b>, written by Amp for @atinux. A live surface serves each request at the commit <code>live.ref()</code> returns, through comark-content’s <code>withRef()</code>, so content changes are served without a redeploy. Merges #58 (typed <code>createNuxtContent()</code>); cut before #53 #54 #55 #57 #59; locks comark-content 0.6.2.</p>
+          <p><b>Draft PR #42 (<code>feat/live-surfaces</code>, 3744e90)</b>, written by Amp for @atinux. A live surface serves each request at the commit <code>live.ref()</code> returns, through comark-content’s <code>withRef()</code>, so content changes are served without a redeploy. Merges #58 (typed <code>createNuxtContent()</code>); cut before #53 #54 #55 #57 #59 #60 #61 #63; locks comark-content 0.6.2.</p>
         </div>
         <h3 class="sec">v4 today vs #42</h3>
         <div class="grid two" id="live-formulas"></div>
@@ -388,7 +389,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
     </main>
     <aside class="panel" id="panel" aria-live="polite"></aside>
   </div>
-  <footer>Sources: <code>nuxt/content-v4-temp</code> v4 @ 30efe01, #42 @ 3744e90 · comark-content v0.6.2 (private) · <code>nuxt/content</code> @ 3c49cff (v3.17.0). Fonts fall back to system fonts here, since the artifact view can’t load Google Fonts.</footer>
+  <footer>Sources: <code>nuxt/content-v4-temp</code> v4 @ d48d094, #42 @ 3744e90 · comark-content v0.6.2 (private) · <code>nuxt/content</code> @ 3c49cff (v3.17.0). Fonts fall back to system fonts here, since the artifact view can’t load Google Fonts.</footer>
 </div>
 <div class="tip" id="tip"></div>
 
@@ -396,25 +397,24 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
 (() => {
 /* ---------- links ---------- */
 const REV = {
-  v4: 'https://github.com/nuxt/content-v4-temp/blob/30efe012b2cd2c6251c8243cdba87bf2adec9c61/',
+  v4: 'https://github.com/nuxt/content-v4-temp/blob/d48d094aad2265f2d9aa97647c7b4823552294c8/',
   pr42: 'https://github.com/nuxt/content-v4-temp/blob/3744e90a92453e0f35be35f878cd9725418b459f/',
-  pr60: 'https://github.com/nuxt/content-v4-temp/blob/90d859e19c190c8bc194e4cb544507d3825ae574/',
   cc: 'https://github.com/comarkdown/comark-content/blob/e0a32149d00c2712c5de00317f734ec5bc988622/packages/comark-content/src/',
   cd: 'https://github.com/comarkdown/comark-docs/blob/a3ebf99f245d4368a52625574ddb970aef7b12b3/',
   v3: 'https://github.com/nuxt/content/blob/3c49cff60fb8a5fcb4899269699a7ef9b73e539e/',
 };
-const PFX = { v4:'', pr42:'#42 ', pr60:'#60 ', cc:'cc ', cd:'docs ', v3:'v3 ' };
+const PFX = { v4:'', pr42:'#42 ', cc:'cc ', cd:'docs ', v3:'v3 ' };
 function L(rev, path, lines){
-  const root = (rev==='v4'||rev==='pr42'||rev==='pr60') && !/^(package\.json|pnpm-lock|test\/|migration\.md|examples\/)/.test(path) ? 'src/' : '';
+  const root = (rev==='v4'||rev==='pr42') && !/^(package\.json|pnpm-lock|test\/|migration\.md|examples\/)/.test(path) ? 'src/' : '';
   const [a,b] = String(lines).split('-');
   return `<a target="_blank" href="${REV[rev]}${root}${path}#L${a}${b?`-L${b}`:''}">${PFX[rev]}${path.replace(/^runtime\//,'').replace(/^src\//,'')}:${lines}</a>`;
 }
-const v=(p,l)=>L('v4',p,l), p42=(p,l)=>L('pr42',p,l), p60=(p,l)=>L('pr60',p,l), cc=(p,l)=>L('cc',p,l), cd=(p,l)=>L('cd',p,l), v3=(p,l)=>L('v3',p,l);
+const v=(p,l)=>L('v4',p,l), p42=(p,l)=>L('pr42',p,l), cc=(p,l)=>L('cc',p,l), cd=(p,l)=>L('cd',p,l), v3=(p,l)=>L('v3',p,l);
 const S = arr => `<span class="src">${arr.join(' ')}</span>`;
 
 /* ---------- tooltips ---------- */
 const TIPS = {
-  path_on:['v4','On the code path of the v4 branch (30efe01).'],
+  path_on:['v4','On the code path of the v4 branch (d48d094).'],
   path_new:['Added by this PR','Only exists on the selected draft PR, not on v4.'],
   path_off:['Not used here, or compat','The code exists (often in comark-content) but this branch never calls it, or it only lands in #42. v3 compat blocks are always drawn this way: they run, but are to be deleted.'],
   o_cc:['comark-content','Engine: instances, hub, handler, HTTP client, sources, withSnapshot(), cache, withRef(). Private repo, comarkdown org.'],
@@ -440,18 +440,23 @@ const B = {
     v3:"v3 has no mode switch: the browser uses WASM SQLite whenever <code>window.WebAssembly</code> exists, and the server always uses a database adapter.",
     br:{ pr42:'A live <code>content</code> requires <code>mode: \'server-only\'</code>; hybrid throws at setup. '+p42('module.ts','105-109') } },
   entry:{ name:'server/content.ts', api:"export const content = createNuxtContent({ … })", own:'nc', rt:'config', on:ALL,
-    what:"The content entry. It exports a comark-content instance or hub built with <code>createNuxtContent()</code>. Only the app’s server directory is checked, not layers. Without this file, the module falls back to one of the two compat entries next to it.",
-    src:[v('module.ts','50-61')],
+    what:"The server content entry. It exports a comark-content instance or hub built with <code>createNuxtContent()</code>. The first one found wins: the project’s, then each layer’s by priority (#61), so a layer such as comark-docs can provide the sources. Without any, the module falls back to one of the two compat entries below.",
+    src:[v('utils/config.ts','77-90'), v('module.ts','50-60')],
     v3:"v3 reads <code>content.config.ts</code> with c12 in every layer, base first, and merges collections by name (a later layer replaces a same-named collection). "+v3('src/utils/config.ts','52-71'),
     cc:"The exported value is a plain comark-content instance or hub.",
-    br:{ pr42:"Every other export with a <code>handler</code> becomes a surface. "+p42('utils/config.ts','62-65') },
-    open:"Open PR #61 adds the lookup across layers; comark-docs is a layer." },
+    br:{ pr42:"Every other export with a <code>handler</code> becomes a surface. "+p42('utils/config.ts','62-65') } },
+  appentry:{ name:'app/content.ts', api:"export const content = createNuxtContent({ plugins })", own:'nc', rt:'browser', on:['v4'],
+    what:"The browser content entry (#60), imported from <code>@nuxt/content/app</code>. When it exists, the auto-imported <code>content</code> comes from this file instead of the module’s hybrid client. During SSR it is the same HTTP client on <code>/__nuxt_content</code>. In the browser it builds one <code>comark-content/runtime</code> instance per instance name, each on its <code>snapshot/&lt;name&gt;.json</code> and loaded on the first read, with the given <code>plugins</code>, composed in a hub when there are several.",
+    note:"<code>createNuxtContent()</code> here is synchronous, so it can’t fetch the manifest to learn the instances: the module passes their names as the build-time <code>import.meta.content.sources</code>. Only the project’s <code>srcDir</code> is checked, not layers.",
+    compat:"Only used with <code>mode: 'hybrid'</code> and <code>compatibilityVersion: 4</code>. Otherwise the module warns and ignores it: server-only reads through the server, and the v3 layer builds its own browser instance with sqlite-wasm.",
+    src:[v('module.ts','106-121'), v('runtime/client-content/app.ts','11-33')],
+    v3:"v3 has no browser entry: the browser always runs its own sqlite-wasm database." },
   v3config:{ name:'Layer content.config.ts', api:'every layer’s config → one hub', own:'v3', rt:'config', on:ALL,
-    what:"Compat entry, used only when there is no <code>server/content.ts</code>: the <code>content.config.ts</code> of every layer is evaluated at setup and each collection becomes a named source on one hub, so <code>queryCollection('&lt;collection&gt;')</code> keeps working. Reads YAML and JSON too.",
-    src:[v('module.ts','50-61'), v('runtime/server/internal/content-config.ts','12-17')],
+    what:"Compat entry, used only with <code>compatibilityVersion: 3</code> and when no layer has a <code>server/content.ts</code>: the <code>content.config.ts</code> of every layer is evaluated at setup and each collection becomes a named source on one hub, so <code>queryCollection('&lt;collection&gt;')</code> keeps working. Reads YAML and JSON too. With <code>compatibilityVersion: 4</code> these files are ignored with a warning.",
+    src:[v('utils/config.ts','81-90'), v('runtime/server/internal/content-config.ts','12-17')],
     v3:"Same files, but v3 turns each collection into SQL tables instead of comark-content instances." },
   fallback:{ name:'Default content/ folder', api:"createNuxtContent({ name: 'content', source: fs('content') })", own:'v3', rt:'config', on:ALL,
-    what:"Compat entry, used only when there is neither <code>server/content.ts</code> nor a <code>content.config.ts</code>: one instance named <code>content</code> on <code>fs('content')</code>, with media, YAML and JSON plugins. The name is <code>content</code> so <code>queryCollection('content')</code> keeps working.",
+    what:"Compat entry, used only when no layer has a <code>server/content.ts</code> and the layer config entry isn’t used (no <code>content.config.ts</code>, or <code>compatibilityVersion: 4</code>): one instance named <code>content</code> on <code>fs('content')</code>, with media, YAML and JSON plugins. The name is <code>content</code> so <code>queryCollection('content')</code> keeps working.",
     src:[v('runtime/server/internal/fallback-content.ts','7-18')],
     v3:"v3’s fallback is one <code>page</code> collection with <code>source: '**/*'</code>. "+v3('src/utils/config.ts','14-19') },
   basepath:{ name:'Fixed base path', api:"basePath: '/__nuxt_content'", own:'nc', rt:'config', on:ALL,
@@ -502,12 +507,12 @@ const B = {
     br:{ v4:"No file under <code>src/</code> mentions it.", pr42:"Called once per resolved commit by <code>resolveContent()</code>." }, zoom:'live' },
   route:{ name:'/__nuxt_content/**', api:'one Nitro route', own:'nc', rt:'server', on:ALL,
     what:"Calls <code>content.handler(event.req)</code>. In dev it forwards to the module’s copy when vite-node gives a base URL.",
-    src:[v('module.ts','109'), v('runtime/server/internal/api.ts','5-6'), v('runtime/server/internal/api.dev.ts','5-18')],
+    src:[v('module.ts','104'), v('runtime/server/internal/api.ts','5-6'), v('runtime/server/internal/api.dev.ts','5-18')],
     v3:"v3 registers <code>/&lt;c&gt;/query</code> per collection with no method set, plus <code>/&lt;c&gt;/sql_dump.txt</code>. "+v3('src/module.ts','177-227'),
     br:{ pr42:"Calls <code>handleContent(content, req)</code> instead. "+p42('runtime/server/internal/api.ts','5-6') } },
   servercontent:{ name:'Server content', api:'auto-imported in Nitro', own:'nc', rt:'server', on:ALL,
     what:"The comark-content instance or hub from the entry, available as <code>content</code> in server code.",
-    src:[v('module.ts','108')],
+    src:[v('module.ts','103')],
     v3:"v3’s server API is <code>queryCollection(event, …)</code>, which fetches its own query route in-process. "+v3('src/runtime/server.ts','20-22') },
   resolve:{ name:'resolveContent()', api:'resolve · handle · revalidate', own:'nc', rt:'server', on:['pr42'], newIn:['pr42'], why:'#42 only',
     what:"<code>resolveContent</code> returns the instance pinned to the resolved ref (keeps current + previous); on failure the last ref, or the build snapshot’s on a cold start. <code>revalidateContent</code> deletes the cached ref only. <code>handleContent</code> = resolve then handler.",
@@ -517,16 +522,16 @@ const B = {
     src:[p42('module.ts','539-568'), p42('runtime/server/internal/surfaces.ts','6-13')] },
   manifest:{ name:'Manifest', api:'/__nuxt_content/manifest.json', own:'cc', rt:'build', on:ALL,
     what:"The index: <code>sources</code>, <code>items</code> by path with listing <code>data</code> and <code>meta.hash</code>, <code>schemas</code>, <code>time</code>, <code>ref</code> when pinned. No bodies. Prerendered by the module, stored as server assets, public too in hybrid.",
-    src:[cc('types/manifest.ts','4-23'), v('module.ts','464-501')],
+    src:[cc('types/manifest.ts','4-23'), v('module.ts','468-505')],
     v3:"v3’s closest piece is the <code>_content_info</code> checksum row at the head of each SQL dump.", zoom:'artifacts' },
   snapshot:{ name:'Snapshot', api:'/__nuxt_content/snapshot/<name>.json', own:'cc', rt:'build', on:ALL,
     what:"The index plus every parsed body. A gzip+base64 <code>CacheArtifact</code>. Read by the server once per instance on the first uncached body; by the browser in hybrid.",
-    src:[cc('types/source.ts','7-14'), v('module.ts','502-508'), cc('content.ts','858-881')],
+    src:[cc('types/source.ts','7-14'), v('module.ts','506-512'), cc('content.ts','858-881')],
     v3:"v3 ships a gzipped, base64 JSON array of SQL lines per collection, bundled in the server (node) or as public assets (Cloudflare). "+v3('src/utils/templates.ts','14-21'),
     br:{ pr42:"Prerendered through the surface’s handler: a live surface’s artifacts are stamped with the build ref. "+p42('module.ts','480-535') }, zoom:'artifacts' },
   types:{ name:'Generated types', api:'content/types.d.ts', own:'nc', rt:'build', on:ALL,
     what:"Generated by reading every instance’s manifest.",
-    src:[v('module.ts','224-254'), v('module.ts','280-309')],
+    src:[v('module.ts','228-258'), v('module.ts','284-313')],
     v3:"v3 types come from each collection’s schema.",
     br:{ pr42:"Live surfaces are typed from their declared schema, without reading the source. "+p42('module.ts','309-337') } },
   appso:{ name:'App content · server-only', api:'HTTP client on /__nuxt_content', own:'cc', rt:'browser', on:ALL,
@@ -534,26 +539,26 @@ const B = {
     src:[v('runtime/client-content/server-only.ts','6-10')],
     v3:"v3 posts SQL to the query route when WASM isn’t available. "+v3('src/runtime/client.ts','21-47') },
   apphy:{ name:'App content · hybrid', api:'comark-content/runtime in the browser', own:'cc', rt:'browser', on:ALL,
-    what:"After SSR, builds a runtime instance from the fixed <code>manifest.json</code> and <code>snapshot/&lt;name&gt;.json</code>.", compat:"Adds sqlite-wasm in the browser so <code>queryCollection()</code> and search run over the snapshot.",
-    src:[v('runtime/client-content/hybrid.ts','22-55')],
+    what:"After SSR, builds a runtime instance from the fixed <code>manifest.json</code> and <code>snapshot/&lt;name&gt;.json</code>. An <code>app/content.ts</code> replaces this client, to add browser plugins.", compat:"Adds sqlite-wasm in the browser so <code>queryCollection()</code> and search run over the snapshot. The plugins come from the <code>#content-wasm-plugins</code> alias, a stub without v3, so sqlite stays out of v4 bundles (#63 replaced a dynamic import that deadlocked the client’s top-level <code>await</code> on Nuxt 4.7).",
+    src:[v('runtime/client-content/hybrid.ts','23-55'), v('module.ts','152-153')],
     v3:"v3 loads <code>sql_dump.txt</code> into in-memory sqlite-wasm, cached in localStorage by checksum. No option turns it off. "+v3('src/runtime/internal/database.client.ts','61-149'),
     br:{ pr42:"Unchanged, and a live <code>content</code> is refused in hybrid." } },
   components:{ name:'Components', api:'<ContentDocument> · <Markdown>', own:'nc', rt:'browser', on:ALL,
     what:"<code>&lt;ContentDocument&gt;</code> is comark’s <code>MarkdownDocument</code> with a generated tag-to-component map; <code>&lt;Markdown&gt;</code> comes from <code>@comark/vue</code>.",
-    src:[v('module.ts','113-141'), v('runtime/components/ContentDocument.ts','12-15')],
+    src:[v('module.ts','122-150'), v('runtime/components/ContentDocument.ts','12-15')],
     v3:"v3 renders minimark through <code>MDCRenderer</code> in <code>&lt;ContentRenderer&gt;</code>. "+v3('src/runtime/components/ContentRenderer.vue','7-9'),
     br:{ pr42:"With a live surface every project component stays in the map. "+p42('module.ts','111-115') } },
   v3api:{ name:'queryCollection composables', api:'queryCollection* · useSearchCollection · <MDC>', own:'v3', rt:'browser', on:ALL,
     what:"Kept so v3 pages keep working, together with <code>&lt;MDC&gt;</code> and the deprecated <code>&lt;ContentRenderer&gt;</code>. To be deleted: use <code>content.get()</code> / <code>list()</code> and <code>&lt;ContentDocument&gt;</code>.",
-    src:[v('module.ts','158-178')],
+    src:[v('module.ts','170-194')],
     v3:"Native in v3: the builder writes SQL strings. "+v3('src/runtime/internal/query.ts','137-170') },
   devcopy:{ name:'Module’s jiti copy', api:'/__NCDEV__/__nuxt_content', own:'nc', rt:'dev', on:ALL,
     what:"The module imports the entry in its own process and clones it: <code>cache: undefined</code>, snapshot wrapper removed. Serves dev, generates types, reads documents for the component map.",
-    src:[v('utils/config.ts','22-59'), v('module.ts','397-439')],
+    src:[v('utils/config.ts','26-63'), v('module.ts','401-443')],
     br:{ pr42:"Created without the live state. "+p42('module.ts','434-467') } },
   watcher:{ name:'Watcher + HMR', api:'watch: true', own:'nc', rt:'dev', on:ALL,
     what:"A watcher and HMR events on top of the dev copy.",
-    src:[v('module.ts','441-460'), v('module.ts','372-388')],
+    src:[v('module.ts','445-464'), v('module.ts','376-392')],
     v3:"v3 watches local sources with chokidar, updates the local SQLite and pushes SQL over the Vite HMR socket to the browser’s WASM DB. "+v3('src/utils/dev.ts','150-240') },
 };
 /* ---------- usage ---------- */
@@ -595,7 +600,25 @@ await content.list(['blog'])          // only the blog instance
 await content.from('blog').list()     // server code: the instance itself` },
     ],
     after:"Hub paths share one namespace: give each source a <code>prefix</code>, since the first instance wins when two paths collide. <code>mode</code> is required by the type but ignored: <code>content.mode</code> in <code>nuxt.config</code> decides. You can’t pass both <code>source</code> and <code>sources</code>: <code>sources</code> wins.",
-    src:[MIG(44,68), v('runtime/server/content.ts','118-135'), v('runtime/server/content.ts','16-30')] },
+    src:[MIG(44,72), v('runtime/server/content.ts','118-135'), v('runtime/server/content.ts','16-30')] },
+  appentry:{
+    intro:"Plugins passed to <code>server/content.ts</code> only run on the server. Pass the browser’s plugins here; every instance of a hub gets them.",
+    blocks:[
+      { t:'app/content.ts', code:
+`import { createNuxtContent } from '@nuxt/content/app'
+import livePreview from 'comark-content/plugins/live-preview'
+
+export const content = createNuxtContent({
+  plugins: [livePreview()],
+})` },
+      { t:'nuxt.config.ts', code:
+`content: {
+  mode: 'hybrid',
+  compatibilityVersion: 4,   // otherwise app/content.ts is ignored
+}` },
+    ],
+    after:"Pages keep reading the auto-imported <code>content</code>; it is the one this file exports.",
+    src:[MIG(74,89)] },
   options:{
     blocks:[{ t:'nuxt.config.ts', code:
 `export default defineNuxtConfig({
@@ -614,7 +637,7 @@ await content.from('blog').list()     // server code: the instance itself` },
 `const page = await queryCollection('docs').path(route.path).first()
 // or, through the instance:
 const page = await content.get(route.path)` }],
-    src:[v('runtime/server/internal/content-config.ts','12-17'), MIG(178,183)] },
+    src:[v('runtime/server/internal/content-config.ts','12-17'), MIG(182,187)] },
   fallback:{
     intro:"Nothing to write: put files in <code>content/</code>. Adding a <code>server/content.ts</code> replaces this default.",
     blocks:[{ t:'Read it', code:
@@ -638,7 +661,7 @@ export const content = createNuxtContent({
 `npx nypm add shiki` },
     ],
     after:"Passing your own <code>markdown()</code> content plugin in <code>plugins</code> drops every default, not only the one you meant to replace.",
-    src:[MIG(115,151), MIG(87,109)] },
+    src:[MIG(119,155), MIG(91,117)] },
   live:{
     intro:"Draft #42 only. Export another surface next to <code>content</code>; it must be live and have its own <code>basePath</code>.",
     blocks:[
@@ -678,7 +701,7 @@ const docs = comarkContent('docs', { source: fs('./docs', { prefix: '/docs' }) }
 const blog = comarkContent('blog', { source: fs('./blog', { prefix: '/blog' }) })
 export const content = contentHub([docs, blog])` },
     ],
-    src:[MIG(153,176)] },
+    src:[MIG(157,180)] },
   sources:{
     blocks:[
       { t:'Local files', code:
@@ -744,7 +767,7 @@ export default defineEventHandler(async () => {
 
 // single instance
 export default defineEventHandler(() => content.get('/about'))` }],
-    src:[v('module.ts','108')] },
+    src:[v('module.ts','103')] },
   resolve:{
     intro:"Draft #42 only. Exported from <code>@nuxt/content/content</code>.",
     blocks:[
@@ -774,9 +797,9 @@ const { data: page } = await useAsyncData(\`page-\${route.path}\`, () =>
   content.get(route.path))` }],
     src:[v('examples/hybrid-v4-pure/app/pages/[...slug].vue','11-17')] },
   apphy:{
-    intro:"Same code as server-only: <code>content.get()</code>, <code>list()</code>, <code>navigation()</code>. Only where it runs changes. In the browser, reads hit the build snapshot instead of the server, so they never see content newer than the build.",
+    intro:"Same code as server-only: <code>content.get()</code>, <code>list()</code>, <code>navigation()</code>. Only where it runs changes. In the browser, reads hit the build snapshot instead of the server, so they never see content newer than the build. To add browser plugins, write an <code>app/content.ts</code>.",
     blocks:[],
-    src:[v('runtime/client-content/hybrid.ts','22-55')] },
+    src:[v('runtime/client-content/hybrid.ts','23-55')] },
   components:{
     blocks:[{ t:'Render a document', code:
 `<template>
@@ -789,7 +812,7 @@ const { data: page } = await useAsyncData(\`page-\${route.path}\`, () =>
     blocks:[{ t:'Moving off it', code:
 `- const doc = await queryCollection('docs').path(path).first()
 + const doc = await content.get(path)` }],
-    src:[MIG(178,183)] },
+    src:[MIG(182,187)] },
 };
 Object.entries(U).forEach(([k, u]) => { if (B[k]) B[k].use = u; });
 
@@ -912,11 +935,11 @@ function makeTimeline(mount, cfg){
 const READ_LANES = ['Browser','App content','Nitro route','Instance','Artifacts · cache'];
 const SSR_COMMON = [
   { lane:0, t:'Request /docs/intro', s:'SSR', x:'The page asks <code>content</code> for <code>/docs/intro</code>. During SSR both modes behave the same.' },
-  { lane:1, t:'HTTP client', s:'GET /__nuxt_content/get/docs/intro', x:'The app-side <code>content</code> is an HTTP client on <code>/__nuxt_content</code> in both modes during SSR.', src:[v('runtime/client-content/server-only.ts','6-10'), v('runtime/client-content/hybrid.ts','13-20')], brick:'appso',
+  { lane:1, t:'HTTP client', s:'GET /__nuxt_content/get/docs/intro', x:'The app-side <code>content</code> is an HTTP client on <code>/__nuxt_content</code> in both modes during SSR.', src:[v('runtime/client-content/server-only.ts','6-10'), v('runtime/client-content/hybrid.ts','14-21')], brick:'appso',
     v3:'v3 builds SQL with <code>queryCollection</code> and fetches <code>/__nuxt_content/&lt;c&gt;/query</code> in-process.' },
 ];
 const SERVE_V4 = [
-  { lane:2, t:'content.handler(req)', s:'/__nuxt_content/**', x:'One Nitro route hands the request to the comark-content handler.', src:[v('module.ts','109'), v('runtime/server/internal/api.ts','5-6')], brick:'route' },
+  { lane:2, t:'content.handler(req)', s:'/__nuxt_content/**', x:'One Nitro route hands the request to the comark-content handler.', src:[v('module.ts','104'), v('runtime/server/internal/api.ts','5-6')], brick:'route' },
   { lane:3, t:'init(): read manifest', s:'cold start only', x:'On a cold start the instance reads the build manifest from server assets. The freshest index wins against a persisted one.', src:[v('runtime/server/content.ts','50-55'), cc('content.ts','815-824'), cc('content.ts','304-357')], brick:'index',
     v3:'v3 checks <code>_content_info</code> on the first query per collection and imports the dump if the checksum differs.' },
   { lane:4, t:'Load snapshot once', s:'first uncached body', x:'The first body not in the cache triggers one snapshot read per instance. A body is used only if its key is indexed and both <code>meta.hash</code> match.', src:[v('runtime/server/content.ts','46-49'), cc('content.ts','858-903')], brick:'snapshot' },
@@ -937,10 +960,11 @@ const READ = {
     { lane:3, t:'Served from cache', s:'warm instance', x:'Index and snapshot are already loaded.' }],
   hy: [...SSR_COMMON, ...SERVE_V4,
     { lane:0, t:'Hydrate, render', s:'<ContentDocument>', x:'The page renders the body through the generated component map.', brick:'components' },
-    { lane:1, t:'Build browser instance', s:'GET manifest.json', x:'When the module exporting <code>content</code> loads, the browser fetches the fixed manifest and builds a <code>comark-content/runtime</code> instance.', src:[v('runtime/client-content/hybrid.ts','22-32')], brick:'apphy',
+    { lane:1, t:'Build browser instance', s:'GET manifest.json', x:'When the module exporting <code>content</code> loads, the browser fetches the fixed manifest and builds a <code>comark-content/runtime</code> instance.', src:[v('runtime/client-content/hybrid.ts','23-32')], brick:'apphy',
       v3:'v3 fetches <code>sql_dump.txt</code> per collection and caches it in localStorage by checksum.' },
+    { lane:1, t:'Or: app/content.ts', s:'no manifest fetch', x:'With an <code>app/content.ts</code> (<code>compatibilityVersion: 4</code>), its <code>createNuxtContent()</code> builds the browser instance instead, with its own plugins. The instance names are a build-time define, so nothing is fetched until the first read loads that instance’s snapshot.', src:[v('runtime/client-content/app.ts','18-33'), v('module.ts','114-120')], brick:'appentry' },
     { lane:0, t:'Client navigation', s:'/docs/next', x:'Reads now run in the browser.' },
-    { lane:4, t:'snapshot/<name>.json', s:'via snapshot() source', x:'Bodies come from the public build snapshot. The URLs name no ref, so the browser reads the content of the build.', src:[v('runtime/client-content/hybrid.ts','36-41'), v('module.ts','485-509')], brick:'snapshot' }],
+    { lane:4, t:'snapshot/<name>.json', s:'via snapshot() source', x:'Bodies come from the public build snapshot. The URLs name no ref, so the browser reads the content of the build.', src:[v('runtime/client-content/hybrid.ts','36-41'), v('module.ts','489-513')], brick:'snapshot' }],
   live: [...SSR_COMMON, ...SERVE_LIVE,
     { lane:0, t:'Client navigation', s:'/docs/next', x:'A live <code>content</code> requires server-only mode, so the browser keeps the HTTP client.', src:[p42('module.ts','105-109')] },
     { lane:1, t:'Same HTTP client', s:'GET /__nuxt_content/get/docs/next', x:'Every read resolves the ref again (or uses the cached one).', brick:'appso' },
@@ -954,7 +978,7 @@ const WHATIF = {
       ['sqlite-wasm in the browser','Runs <code>queryCollection()</code> and full-text search over the snapshot.','v3']],
   live:[['A push lands','With <code>maxAge</code>, call <code>revalidateContent()</code> (e.g. from a webhook) to drop the cached ref. No purge, diff or warm-up.'],
         ['Two refs at once','Not possible: <code>ref()</code> takes no argument, so a surface serves one ref at a time.'],
-        ['comark-content 0.6.0 vs 0.6.2','#42 locks 0.6.2: only changed blobs are read, with reuse across refs through a shared cache driver. v4 locks 0.6.0, which walks every file.']],
+        ['comark-content 0.6.2','#42 locks 0.6.2: only changed blobs are read, with reuse across refs through a shared cache driver. <code>v4</code> moved to 0.6.2 too in #63, so both run the same engine.']],
 };
 function renderRead(){
   document.querySelectorAll('#modeseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode===mode)));
@@ -968,16 +992,16 @@ function renderArtifacts(){
   const rows = [
     ['Contains', `<code>sources</code>, <code>items</code> by path (<code>path</code>, listing <code>data</code>, <code>meta.hash</code>), <code>schemas</code>, <code>time</code>, <code>ref</code> when pinned. No bodies.${S([cc('types/manifest.ts','4-23')])}`, `<code>items</code>: every file with <code>data</code>, <code>meta</code> and parsed <code>nodes</code>; <code>time</code>; <code>ref</code> when pinned.${S([cc('types/source.ts','7-14')])}`, 'Per collection: an array of SQL lines (structure, meta, one INSERT per row with a row hash), wrapped in a <code>_content_info</code> checksum row.'+S([v3('src/module.ts','425-442')])],
     ['Wire form', `<code>CacheArtifact</code>: gzip + base64 JSON with checksum and size.${S([cc('content/cache.ts','107-127')])}`, 'Same.', 'JSON array, gzipped and base64-encoded.'+S([v3('src/utils/templates.ts','14-21')])],
-    ['Built', `<code>nuxt build</code> prerenders <code>/manifest.json</code> and <code>/manifest/&lt;name&gt;.json</code>.${S([v('module.ts','464-468')])}`, `Prerenders <code>/snapshot/&lt;name&gt;.json</code>, which parses every file.${S([cc('content.ts','469-471')])}`, 'At <code>modules:done</code>: parse in chunks of 25, cached in <code>.data/content/contents.sqlite</code>.'+S([v3('src/module.ts','352-417')])],
-    ['Stored', `Server assets; public too in hybrid.${S([v('module.ts','474-501')])}`, `Server assets; public too in hybrid.${S([v('module.ts','502-508')])}`, 'Bundled into the server (node preset) or public <code>dump.&lt;c&gt;.sql</code> (Cloudflare); <code>sql_dump.txt</code> prerendered.'+S([v3('src/presets/node.ts','11-27'), v3('src/module.ts','185-190')])],
+    ['Built', `<code>nuxt build</code> prerenders <code>/manifest.json</code> and <code>/manifest/&lt;name&gt;.json</code>.${S([v('module.ts','468-472')])}`, `Prerenders <code>/snapshot/&lt;name&gt;.json</code>, which parses every file.${S([cc('content.ts','469-471')])}`, 'At <code>modules:done</code>: parse in chunks of 25, cached in <code>.data/content/contents.sqlite</code>.'+S([v3('src/module.ts','352-417')])],
+    ['Stored', `Server assets; public too in hybrid.${S([v('module.ts','478-505')])}`, `Server assets; public too in hybrid.${S([v('module.ts','506-512')])}`, 'Bundled into the server (node preset) or public <code>dump.&lt;c&gt;.sql</code> (Cloudflare); <code>sql_dump.txt</code> prerendered.'+S([v3('src/presets/node.ts','11-27'), v3('src/module.ts','185-190')])],
     ['Read by server', `Every cold start, by <code>init()</code>.${S([cc('content.ts','815-824')])}`, `Once per instance, first uncached body.${S([cc('content.ts','858-881')])}`, 'First query per collection per process; diff by row hash or full reload.'+S([v3('src/runtime/internal/database.server.ts','68-185')])],
     ['Read by browser', `Hybrid only, when <code>content</code> loads.${S([v('runtime/client-content/hybrid.ts','28-32')])}`, `Hybrid only, via the <code>snapshot()</code> source.${S([v('runtime/client-content/hybrid.ts','36-41')])}`, 'Always when WASM exists; cached in localStorage by checksum.'+S([v3('src/runtime/internal/database.client.ts','85-149')])],
   ];
   document.getElementById('art-table').innerHTML = `<table class="cmp"><thead><tr><th></th><th>Manifest</th><th>Snapshot</th><th>v3 equivalent: SQL dump</th></tr></thead><tbody>${rows.map(r=>`<tr${r[0]==='On #42'?' class="hl"':''}><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`;
   const life = [
-    { lane:0, t:'Prerender artifact routes', s:'manifest.json · snapshot/<name>.json', x:'The module prerenders the manifest and snapshot routes.', src:[v('module.ts','464-468')] },
+    { lane:0, t:'Prerender artifact routes', s:'manifest.json · snapshot/<name>.json', x:'The module prerenders the manifest and snapshot routes.', src:[v('module.ts','468-472')] },
     { lane:0, t:'Loaders return nothing', s:'build walks the origin', x:'While prerendering, the snapshot loaders return nothing, so the artifacts describe the source at build time.', src:[v('runtime/server/content.ts','46-55')], brick:'withsnap' },
-    { lane:1, t:'Stored as server assets', s:'content/prerender/…', x:'Kept as the <code>content</code> server assets. Public output too in hybrid only.', src:[v('module.ts','474-509')] },
+    { lane:1, t:'Stored as server assets', s:'content/prerender/…', x:'Kept as the <code>content</code> server assets. Public output too in hybrid only.', src:[v('module.ts','478-513')] },
     { lane:2, t:'Cold start: init()', s:'read manifest', x:'Reads the build manifest; freshest index wins against a persisted one. With the in-memory default there is none.', src:[cc('content.ts','304-357'), cc('content/cache.ts','158')], brick:'index' },
     { lane:2, t:'First uncached body', s:'read snapshot once', x:'One snapshot read per instance. Bodies are trusted only if indexed with matching <code>meta.hash</code>.', src:[cc('content.ts','883-903')], brick:'snapshot' },
     { lane:2, t:'HTTP artifacts cached', s:'dropped on every change', x:'Artifacts served over HTTP are built once and cached, then dropped on any corpus change.', src:[cc('content/artifacts.ts','37-48'), cc('content/artifacts.ts','93-134')] },
@@ -1039,10 +1063,10 @@ function renderCompare(){
       v4cell('One comark-content instance per source, or a hub of named instances.'+S([v('runtime/server/content.ts','118-135')]), 'plus extra surfaces with their own base path.'),
       'Instance (<code>comarkContent(name, …)</code>) or hub (<code>contentHub()</code>).'],
     ['Config entry', '<code>content.config.ts</code> per layer via c12; merged by collection name; config change restarts Nuxt in dev.'+S([v3('src/utils/config.ts','23-71')]),
-      v4cell('<code>server/content.ts</code>. Without it, compat entries: every layer’s <code>content.config.ts</code> as a hub, or a default <code>fs(\'content\')</code> instance. Layers’ <code>server/content.ts</code> not found (#61).'+S([v('module.ts','50-61')])),
+      v4cell('<code>server/content.ts</code>, from the project or else a layer. Without one, compat entries: every layer’s <code>content.config.ts</code> as a hub (<code>compatibilityVersion: 3</code> only), or a default <code>fs(\'content\')</code> instance. In hybrid with <code>compatibilityVersion: 4</code>, <code>app/content.ts</code> configures the browser instance.'+S([v('utils/config.ts','77-90'), v('module.ts','106-121')])),
       'Plain code: you build instances yourself.'],
     ['Build output', 'Per collection: gzip+base64 SQL dump with a checksum row, bundled or public.'+S([v3('src/utils/templates.ts','89-153')]),
-      v4cell('Prerendered manifest + snapshot per instance, as server assets (public in hybrid).'+S([v('module.ts','464-511')]), 'live surfaces stamped with the build ref.'),
+      v4cell('Prerendered manifest + snapshot per instance, as server assets (public in hybrid).'+S([v('module.ts','468-515')]), 'live surfaces stamped with the build ref.'),
       'Manifest and snapshot produced by the handler; no build step of its own.'],
     ['Server storage', 'A database: SQLite (several drivers), D1, Postgres, libsql, pglite. Cloudflare forces D1; Vercel <code>/tmp</code>.'+S([v3('src/utils/database.ts','38-55')]),
       'comark-content cache: in-memory by default, or a <code>cache.driver</code>. <span class="badge o-v3">v3 compat</span> adds one <code>sqlite-node</code> DB.'+S([v('runtime/v3/content-plugins.server.ts','8-16')]),
@@ -1051,16 +1075,16 @@ function renderCompare(){
       'Manifest on <code>init()</code>; snapshot once per instance on the first uncached body.',
       'Same mechanics; freshest index wins.'+S([cc('content.ts','304-357')])],
     ['Routes', '<code>/&lt;c&gt;/query</code> (SQL, any method) and <code>/&lt;c&gt;/sql_dump.txt</code> per collection.'+S([v3('src/module.ts','177-227')]),
-      v4cell('One <code>/__nuxt_content/**</code> → handler.'+S([v('module.ts','109')]), 'through <code>handleContent</code>; surfaces on their own base paths.'),
+      v4cell('One <code>/__nuxt_content/**</code> → handler.'+S([v('module.ts','104')]), 'through <code>handleContent</code>; surfaces on their own base paths.'),
       '<code>get</code>, <code>list</code>, <code>navigation</code>, <code>manifest</code>, <code>snapshot</code>, plus plugin routes.'+S([cc('content/handler.ts','44-109')])],
     ['Query API', '<code>queryCollection</code> builder writes SQL; checked server-side by <code>assertSafeQuery</code>.'+S([v3('src/runtime/internal/query.ts','137-170'), v3('src/runtime/internal/security.ts','155-224')]),
-      'Handler API (<code>get</code>/<code>list</code>/<code>navigation</code>). <span class="badge o-v3">v3 compat</span> keeps <code>queryCollection*</code>.'+S([v('module.ts','158-178')]),
+      'Handler API (<code>get</code>/<code>list</code>/<code>navigation</code>). <span class="badge o-v3">v3 compat</span> keeps <code>queryCollection*</code>.'+S([v('module.ts','170-194')]),
       'Handler API; SQL and FTS are opt-in plugins.'+S([cc('plugins/sql-query.ts','405')])],
     ['Browser', 'Always sqlite-wasm when available; dump cached in localStorage; no option to turn it off.'+S([v3('src/runtime/client.ts','114-129'), v3('src/runtime/internal/database.client.ts','61-149')]),
-      v4cell('server-only: HTTP client. hybrid: <code>comark-content/runtime</code> from fixed build URLs. <span class="badge o-v3">v3 compat</span> adds sqlite-wasm.'+S([v('runtime/client-content/hybrid.ts','22-55')]), 'live content requires server-only.'),
+      v4cell('server-only: HTTP client. hybrid: <code>comark-content/runtime</code> from fixed build URLs, configurable in <code>app/content.ts</code>. <span class="badge o-v3">v3 compat</span> adds sqlite-wasm.'+S([v('runtime/client-content/hybrid.ts','23-55')]), 'live content requires server-only.'),
       '<code>comark-content/runtime</code> and an HTTP client.'],
     ['Dev', 'chokidar on local sources → local SQLite → SQL pushed over Vite HMR to the browser DB.'+S([v3('src/utils/dev.ts','33-60'), v3('src/utils/dev.ts','150-240')]),
-      v4cell('Module’s own jiti copy under <code>/__NCDEV__/</code>, watcher, HMR events.'+S([v('utils/config.ts','22-59')]), 'dev copy has no live state.'),
+      v4cell('Module’s own jiti copy under <code>/__NCDEV__/</code>, watcher, HMR events.'+S([v('utils/config.ts','26-63')]), 'dev copy has no live state.'),
       '—'],
     ['Remote source', 'Cloned at build/dev start (branch or tag, no SHA); never re-read at runtime.'+S([v3('src/utils/source.ts','63-120')]),
       v4cell('Build snapshot is the index until <code>refresh()</code> or <code>cache.ttl</code>.', '<code>live.ref()</code> resolves a commit per request (or per <code>maxAge</code>).'),
