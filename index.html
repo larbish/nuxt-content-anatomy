@@ -19,6 +19,7 @@
   --green:#1d6b35; --green-bg:#e2f3e6;
   --yellow:#7a5d00; --yellow-bg:#fff1b8; --yellow-line:#d9b300;
   --pr:#2846c8; --pr-bg:#e6ebfc;
+  --prop:#7a5a9e; --prop-bg:#f1ebf8;
   --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --f-body:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -171,9 +172,44 @@ main{min-width:0}
 .trow.cur .card2{box-shadow:0 0 0 1px var(--ink)}
 .card2.new{background:var(--pr-bg)}
 .card2.warn{border-color:var(--red)}
-.card2 .t{font-weight:600; font-size:13px; line-height:1.25}
+.card2 .t{font-weight:600; font-size:13px; line-height:1.25; overflow-wrap:anywhere}
 .card2 .s{font:11.5px/1.3 var(--f-mono); color:var(--ink-2); overflow-wrap:anywhere}
 .card2 .n{font:500 10.5px/1 var(--f-mono); color:var(--mute)}
+
+/* Proposed live mode: purple, dashed. No code exists for it. */
+.o-prop{color:var(--prop); background:var(--prop-bg)}
+.b-on{color:var(--paper); background:var(--ink)}
+.b-off{color:var(--mute); background:var(--inside-bg)}
+.sw.prop{border:1.5px dashed var(--prop)}
+.tab .dot.prop{background:var(--prop)}
+.brick.prop{border-style:dashed; border-color:var(--prop); background:transparent}
+.brick.prop:hover{background:var(--prop-bg)}
+.brick.prop.sel{box-shadow:0 0 0 1px var(--prop)}
+.livehead.prop{border-color:var(--prop); background:var(--prop-bg)}
+.formula.prop{border-color:var(--prop)}
+.formula.prop h5{color:var(--prop)}
+.call.prop{border-left-color:var(--prop)} .call.prop .t{color:var(--prop)}
+.call.open{border-left-color:var(--ckpt)} .call.open .t{color:var(--ckpt)}
+.card2.prop{background:var(--prop-bg)}
+.card2.open{border-style:dashed; border-color:var(--ckpt)}
+.card2.skip{border-style:dashed; border-color:var(--rule); background:transparent; color:var(--mute)}
+.card2.skip .s{color:var(--mute)}
+.wi.open{border-style:dashed; border-color:var(--ckpt)}
+.wi .badge + .badge{margin-left:6px}
+.sitpick{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 12px}
+.sitpick button{appearance:none; border:1.5px solid var(--ink); border-radius:7px; background:var(--panel); color:var(--ink-2); font:500 12.5px/1 var(--f-body); padding:7px 10px; cursor:pointer}
+.sitpick button:hover{background:var(--inside-bg)}
+.sitpick button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.tally{display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:8px; margin:0 0 12px}
+.tally > div{border:1.5px solid var(--rule); border-radius:8px; background:var(--panel); padding:9px 10px; display:flex; flex-direction:column; gap:6px; font-size:12.5px; color:var(--ink-2); min-width:0}
+.cell{display:flex; flex-direction:column; align-items:flex-start; gap:5px}
+.rw{display:inline-block; font:500 10px/1 var(--f-mono); letter-spacing:.05em; text-transform:uppercase; padding:3px 5px; border-radius:4px; border:1px solid var(--ink-2); color:var(--ink-2); margin-right:6px; vertical-align:1px}
+.rw.w{background:var(--ink-2); color:var(--panel)}
+table.cmp tr.pick{cursor:pointer}
+table.cmp tr.pick:hover td, table.cmp tr.pick:hover th{background:var(--inside-bg)}
+table.cmp tr.pick.hl td, table.cmp tr.pick.hl th{background:var(--prop-bg)}
+table.cmp tbody th .linkbtn{font-weight:600; text-align:left; color:var(--ink)}
+table.cmp tbody th small{display:block; font-weight:400; color:var(--mute); margin-top:3px; font-size:12px}
 
 .sec{font-family:var(--f-display); font-size:20px; margin:26px 0 6px}
 .sec:first-child{margin-top:4px}
@@ -213,14 +249,15 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
 <body>
 <div class="wrap">
   <h1>Nuxt Content v4 Anatomy</h1>
-  <p class="lede">How a read moves through Nuxt Content v4, what the module adds on top of comark-content, and how it differs from v3. Draft PR #42 (live mode) has its own tab. Click any brick for details and sources; hover a badge for its meaning.</p>
+  <p class="lede">How a read moves through Nuxt Content v4, what the module adds on top of comark-content, and how it differs from v3. Live mode has two tabs: draft PR #42, and the proposed design that will replace it (no code yet). Click any brick for details and sources; hover a badge for its meaning.</p>
 
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-screen="overview"><span class="n">1</span>Global overview</button>
     <button class="tab" role="tab" data-screen="read"><span class="n">2</span>A read, step by step</button>
     <button class="tab" role="tab" data-screen="artifacts"><span class="n">3</span>Manifest &amp; snapshot</button>
     <button class="tab" role="tab" data-screen="live"><span class="n">4</span><span class="dot"></span>Live mode in #42</button>
-    <button class="tab" role="tab" data-screen="compare"><span class="n">5</span>v3 · v4 · comark-content</button>
+    <button class="tab" role="tab" data-screen="proposed"><span class="n">5</span><span class="dot prop"></span>Live mode · proposed</button>
+    <button class="tab" role="tab" data-screen="compare"><span class="n">6</span>v3 · v4 · comark-content</button>
   </div>
 
   <div class="legendbox">
@@ -228,12 +265,14 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
       <span class="k" data-tip="path_on"><span class="sw ink"></span>v4</span>
       <span class="k" data-tip="o_v3"><span class="sw grey"></span>v3 compat · to be deleted</span>
       <span class="k" data-tip="o_pr"><span class="sw pr"></span>#42 live mode (draft)</span>
+      <span class="k" data-tip="o_prop"><span class="sw prop"></span>proposed live mode (no code yet)</span>
     </div></div>
     <div class="lg-row"><span class="lbl">Owner</span><div class="lg-items">
       <span class="badge o-cc" data-tip="o_cc">comark-content</span>
       <span class="badge o-nc" data-tip="o_nc">Nuxt Content</span>
       <span class="badge o-v3" data-tip="o_v3">v3 compat · to delete</span>
       <span class="badge o-pr" data-tip="o_pr">#42 live mode</span>
+      <span class="badge o-prop" data-tip="o_prop">proposed</span>
     </div></div>
     <div class="lg-row"><span class="lbl">Runs in</span><div class="lg-items">
       <span class="rt" data-tip="rt_config">Config</span>
@@ -243,7 +282,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
       <span class="rt" data-tip="rt_browser">Browser</span>
       <span class="rt" data-tip="rt_dev">Dev</span>
     </div></div>
-    <p class="lg-note">Static page: built from your recap and the local checkout on 23 Nov 2026, updated to <code>v4</code> @ d48d094 (#60, #61, #63) on 24 Nov. v3 is <code>@nuxt/content</code> 3.17.0 at <code>3c49cff</code>. PR states may have moved since.</p>
+    <p class="lg-note">Static page: built from your recap and the local checkout on 23 Nov 2026, updated on 24 Nov. v4 is the <code>v4</code> branch of <code>nuxt/content</code> at <code>1e99a5a</code>: the same code as the frozen <code>nuxt/content-v4-temp</code> at d48d094 (through #63). The proposed live mode has no code yet. v3 is <code>@nuxt/content</code> 3.17.0 at <code>3c49cff</code>. PR states may have moved since.</p>
   </div>
 
   <div class="layout">
@@ -274,6 +313,8 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
                   <button class="brick" data-id="defaults"></button>
                   <button class="brick" data-id="v3plugins"></button>
                   <button class="brick" data-id="live"></button>
+                  <button class="brick" data-id="liveprop"></button>
+                  <button class="brick" data-id="forgeref"></button>
                 </div>
                 <div class="box" style="border-color:var(--yellow-line)">
                   <div class="box-h" style="border-bottom-color:var(--yellow-line)"><span class="nm">comark-content instance</span><span class="api">comarkContent() · contentHub()</span><span class="badge o-cc" data-tip="o_cc">comark-content</span></div>
@@ -299,6 +340,8 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
                   <button class="brick" data-id="servercontent"></button>
                   <button class="brick" data-id="resolve"></button>
                   <button class="brick" data-id="surfaces"></button>
+                  <button class="brick" data-id="revalidate"></button>
+                  <button class="brick" data-id="storedcommit"></button>
                 </div>
               </div>
               <div class="box">
@@ -335,7 +378,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
 
       <!-- 2 · Read -->
       <section class="screen" id="screen-read" hidden>
-        <p class="secintro">One page asking for <code>/docs/intro</code>: first the SSR request, then a client-side navigation. Pick a mode, then step through. The live read of draft #42 is in the “Live mode in #42” tab.</p>
+        <p class="secintro">One page asking for <code>/docs/intro</code>: first the SSR request, then a client-side navigation. Pick a mode, then step through. The live read of draft #42 is in the “Live mode in #42” tab, and the proposed live mode in “Live mode · proposed”.</p>
         <div class="controls"><div class="seg" id="modeseg">
           <button data-mode="so">server-only</button><button data-mode="hy">hybrid</button>
         </div></div>
@@ -358,6 +401,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
         <div class="livehead">
           <div class="meta" style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge o-pr" data-tip="o_pr">#42 live mode</span><span class="badge o-neutral">draft · checks green · no review</span></div>
           <p><b>Draft PR #42 (<code>feat/live-surfaces</code>, 3744e90)</b>, written by Amp for @atinux. A live surface serves each request at the commit <code>live.ref()</code> returns, through comark-content’s <code>withRef()</code>, so content changes are served without a redeploy. Merges #58 (typed <code>createNuxtContent()</code>); cut before #53 #54 #55 #57 #59 #60 #61 #63; locks comark-content 0.6.2.</p>
+          <p>It stays open as a draft on the frozen <code>nuxt/content-v4-temp</code>, for comparison only. The feature will be rewritten from scratch in a new PR on <code>nuxt/content</code> <code>v4</code>: see <button class="linkbtn" data-go="proposed">Live mode · proposed</button>.</p>
         </div>
         <h3 class="sec">v4 today vs #42</h3>
         <div class="grid two" id="live-formulas"></div>
@@ -377,7 +421,35 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
         <div class="whatif" id="live-limits"></div>
       </section>
 
-      <!-- 5 · Compare -->
+      <!-- 5 · Live mode, proposed -->
+      <section class="screen" id="screen-proposed" hidden>
+        <div class="livehead prop">
+          <div class="meta" style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge o-prop" data-tip="o_prop">proposed</span><span class="badge o-neutral">no code yet · design to confirm</span></div>
+          <p><b>Proposed live mode</b>, to be written from scratch in a new PR on <code>nuxt/content</code> <code>v4</code> (1e99a5a). Draft #42 stays open for comparison only: see <button class="linkbtn" data-go="live">Live mode in #42</button>.</p>
+          <p>No code exists for it, so nothing here links to lines of the proposal. The links go to the code it would run on: comark-content 0.6.2 (what <code>v4</code> locks today) and <code>v4</code>. The PR will bump comark-content to 0.6.3, which does not change <code>withRef()</code> or snapshots.</p>
+        </div>
+        <h3 class="sec">The entry, and what a request does</h3>
+        <div id="prop-formulas"></div>
+        <h3 class="sec">When live.ref() and GitHub are called, and what is read</h3>
+        <p class="secintro">One row per situation. <b>Called</b> means the function or the network is used; the last two columns say what is <span class="rw">read</span> from or <span class="rw w">written</span> to the cache and the build snapshot. Click a row to step through it below.</p>
+        <div class="tablewrap" id="prop-matrix"></div>
+        <h3 class="sec" id="prop-steps">Step through a situation</h3>
+        <p class="secintro">Each lane is one thing that can be called or read. A card in the <code>live.ref()</code> or GitHub lane is a call; a dashed grey card means it is skipped. Purple cards are the proposed Nuxt Content behaviour, white ones are comark-content as it works today.</p>
+        <div class="sitpick" id="prop-pick"></div>
+        <div class="tally" id="prop-tally"></div>
+        <div id="tl-prop"></div>
+        <h3 class="sec">A push: who does what</h3>
+        <div id="prop-push"></div>
+        <h3 class="sec">Against #42: kept, deleted, updated</h3>
+        <div class="tablewrap" id="prop-kdu"></div>
+        <h3 class="sec">What it changes in existing v4 blocks</h3>
+        <div class="tablewrap" id="prop-changes"></div>
+        <h3 class="sec">Still open</h3>
+        <p class="secintro">Not decided yet. Shown here so they are not read as part of the design.</p>
+        <div class="whatif" id="prop-open" style="margin-top:0"></div>
+      </section>
+
+      <!-- 6 · Compare -->
       <section class="screen" id="screen-compare" hidden>
         <p class="secintro">The same questions asked of <b>v3</b> (<code>@nuxt/content</code> 3.17.0), the <b>v4 module</b>, and <b>comark-content</b> on its own (0.6.2).</p>
         <div class="tablewrap" id="cmp-table"></div>
@@ -389,7 +461,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
     </main>
     <aside class="panel" id="panel" aria-live="polite"></aside>
   </div>
-  <footer>Sources: <code>nuxt/content-v4-temp</code> v4 @ d48d094, #42 @ 3744e90 · comark-content v0.6.2 (private) · <code>nuxt/content</code> @ 3c49cff (v3.17.0). Fonts fall back to system fonts here, since the artifact view can’t load Google Fonts.</footer>
+  <footer>Sources: <code>nuxt/content</code> v4 @ 1e99a5a (same code as <code>nuxt/content-v4-temp</code> @ d48d094) · #42 @ 3744e90 on <code>nuxt/content-v4-temp</code> (private, frozen) · proposed live mode: no code · comark-content v0.6.2 (private) · <code>nuxt/content</code> @ 3c49cff (v3.17.0). Fonts fall back to system fonts here, since the artifact view can’t load Google Fonts.</footer>
 </div>
 <div class="tip" id="tip"></div>
 
@@ -397,7 +469,8 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
 (() => {
 /* ---------- links ---------- */
 const REV = {
-  v4: 'https://github.com/nuxt/content-v4-temp/blob/d48d094aad2265f2d9aa97647c7b4823552294c8/',
+  // nuxt/content `v4`. Same tree as content-v4-temp d48d094 apart from .github/workflows/release.yml.
+  v4: 'https://github.com/nuxt/content/blob/1e99a5a2fee91c0f794681ec43627e88e4d77cc2/',
   pr42: 'https://github.com/nuxt/content-v4-temp/blob/3744e90a92453e0f35be35f878cd9725418b459f/',
   cc: 'https://github.com/comarkdown/comark-content/blob/e0a32149d00c2712c5de00317f734ec5bc988622/packages/comark-content/src/',
   cd: 'https://github.com/comarkdown/comark-docs/blob/a3ebf99f245d4368a52625574ddb970aef7b12b3/',
@@ -414,7 +487,10 @@ const S = arr => `<span class="src">${arr.join(' ')}</span>`;
 
 /* ---------- tooltips ---------- */
 const TIPS = {
-  path_on:['v4','On the code path of the v4 branch (d48d094).'],
+  path_on:['v4','On the code path of the v4 branch of nuxt/content (1e99a5a).'],
+  o_prop:['Proposed live mode','The design to confirm, to be written from scratch in a new PR on nuxt/content v4. No code exists yet, so it has no source links. Drawn dashed purple. Explained in the “Live mode · proposed” tab.'],
+  o_app:['The app','Code that stays in the app: the webhook route, its signature check, the URL mapping and the ISR purge.'],
+  st_open:['Open','Not decided yet. Shown so it is not read as part of the design.'],
   path_new:['Added by this PR','Only exists on the selected draft PR, not on v4.'],
   path_off:['Not used here, or compat','The code exists (often in comark-content) but this branch never calls it, or it only lands in #42. v3 compat blocks are always drawn this way: they run, but are to be deleted.'],
   o_cc:['comark-content','Engine: instances, hub, handler, HTTP client, sources, withSnapshot(), cache, withRef(). Private repo, comarkdown org.'],
@@ -428,7 +504,7 @@ const TIPS = {
   rt_dev:['Dev','Only under nuxt dev, in the module’s own process.'],
 };
 const RTL = { config:'Config', build:'Build', server:'Nitro', browser:'Browser', dev:'Dev' };
-const OWN = { cc:['o-cc','comark-content'], nc:['o-nc','Nuxt Content'], v3:['o-v3','v3 compat'] };
+const OWN = { cc:['o-cc','comark-content'], nc:['o-nc','Nuxt Content'], v3:['o-v3','v3 compat'], app:['o-neutral','The app'] };
 
 /* ---------- bricks ---------- */
 // on: branches where the brick is on the code path. new: branches where it is added by a PR.
@@ -438,7 +514,8 @@ const B = {
     what:"<code>mode</code>: <code>server-only</code> or <code>hybrid</code> (default, also from <code>CONTENT_MODE</code>). <code>watch</code>: default <code>true</code>. Plus <code>build.markdown.highlight</code>, <code>build.markdown.toc</code>, <code>renderer.anchorLinks</code>.", compat:"<code>compatibilityVersion</code> (default <code>3</code>) keeps the v3 layer on; <code>4</code> turns it off.",
     src:[v('types.ts','34-72'), v('module.ts','39-48')],
     v3:"v3 has no mode switch: the browser uses WASM SQLite whenever <code>window.WebAssembly</code> exists, and the server always uses a database adapter.",
-    br:{ pr42:'A live <code>content</code> requires <code>mode: \'server-only\'</code>; hybrid throws at setup. '+p42('module.ts','105-109') } },
+    br:{ pr42:'A live <code>content</code> requires <code>mode: \'server-only\'</code>; hybrid throws at setup. '+p42('module.ts','105-109'),
+      prop:"A live <code>content</code> requires <code>mode: 'server-only'</code>, as in #42." } },
   entry:{ name:'server/content.ts', api:"export const content = createNuxtContent({ … })", own:'nc', rt:'config', on:ALL,
     what:"The server content entry. It exports a comark-content instance or hub built with <code>createNuxtContent()</code>. The first one found wins: the project’s, then each layer’s by priority (#61), so a layer such as comark-docs can provide the sources. Without any, the module falls back to one of the two compat entries below.",
     src:[v('utils/config.ts','77-90'), v('module.ts','50-60')],
@@ -463,7 +540,8 @@ const B = {
     what:"Forced for an instance and for a hub. Nothing names a ref in the URL.",
     src:[v('runtime/server/content.ts','80'), v('runtime/server/content.ts','127')],
     v3:"v3 also lives under <code>/__nuxt_content</code>, but per collection: <code>/&lt;c&gt;/query</code> and <code>/&lt;c&gt;/sql_dump.txt</code>.",
-    br:{ pr42:"Other surfaces get their own <code>basePath</code>; <code>content</code> stays here." } },
+    br:{ pr42:"Other surfaces get their own <code>basePath</code>; <code>content</code> stays here.",
+      prop:"Unchanged. Only the <code>content</code> export can be live, at this path: no extra surfaces and no <code>basePath</code> option." } },
   withsnap:{ name:'withSnapshot() wrapper', api:'loaders read assets:content', own:'nc', rt:'server', on:ALL,
     what:"Wraps the source with loaders that read the prerendered manifest and snapshot from server assets, unless the source is already parsed. While prerendering the loaders return nothing, so the build walks the origin.",
     src:[v('runtime/server/content.ts','32-67'), v('runtime/server/content.ts','81')],
@@ -500,16 +578,19 @@ const B = {
   cache:{ name:'Cache', api:'in-memory by default · cache: { driver }', own:'cc', rt:'server', on:ALL,
     what:"Holds the live index (<code>manifest</code>), bodies (<code>&lt;name&gt;:&lt;path&gt;</code>) and HTTP artifacts. With the default in-memory cache a cold server starts empty.",
     src:[cc('content/cache.ts','12-30'), cc('content/cache.ts','158')],
-    v3:"v3’s cache is the database itself (SQLite file, D1, Postgres, libsql, pglite). On Vercel it’s <code>/tmp/contents.sqlite</code>. "+v3('src/presets/vercel.ts','25-31') },
+    v3:"v3’s cache is the database itself (SQLite file, D1, Postgres, libsql, pglite). On Vercel it’s <code>/tmp/contents.sqlite</code>. "+v3('src/presets/vercel.ts','25-31'),
+    br:{ prop:"The same driver also holds the resolved commit, written by Nuxt Content next to the parsed content. Servers sharing the driver serve the same commit; without a driver it is kept in memory, per server." } },
   withref:{ name:'withRef()', api:'instance.withRef(commit)', own:'cc', rt:'server', on:['pr42'], why:'never called on v4',
     what:"Not called on v4; #42 calls it once per resolved commit. Creates another instance at that ref: same options, source pinned, cache keys under <code>ref:&lt;name&gt;%3A&lt;ref&gt;</code>, ref stamped on artifacts. A stamped artifact read at another ref is foreign: bodies are reused by blob ID.",
     src:[cc('content.ts','1466-1513'), cc('content.ts','317-318')],
-    br:{ v4:"No file under <code>src/</code> mentions it.", pr42:"Called once per resolved commit by <code>resolveContent()</code>." }, zoom:'live' },
+    br:{ v4:"No file under <code>src/</code> mentions it.", pr42:"Called once per resolved commit by <code>resolveContent()</code>.",
+      prop:"Called with the commit to serve: requests are served from <code>content.withRef(sha)</code>. Only a source with a <code>withRef</code> is really pinned (<code>forge()</code> has one, <code>fs()</code> and <code>unstorage()</code> do not)."+S([cc('content.ts','1510-1513'), cc('sources/forge.ts','86')]) }, zoom:'live' },
   route:{ name:'/__nuxt_content/**', api:'one Nitro route', own:'nc', rt:'server', on:ALL,
     what:"Calls <code>content.handler(event.req)</code>. In dev it forwards to the module’s copy when vite-node gives a base URL.",
     src:[v('module.ts','104'), v('runtime/server/internal/api.ts','5-6'), v('runtime/server/internal/api.dev.ts','5-18')],
     v3:"v3 registers <code>/&lt;c&gt;/query</code> per collection with no method set, plus <code>/&lt;c&gt;/sql_dump.txt</code>. "+v3('src/module.ts','177-227'),
-    br:{ pr42:"Calls <code>handleContent(content, req)</code> instead. "+p42('runtime/server/internal/api.ts','5-6') } },
+    br:{ pr42:"Calls <code>handleContent(content, req)</code> instead. "+p42('runtime/server/internal/api.ts','5-6'),
+      prop:"Serves each request from <code>content.withRef(sha)</code>, at the stored or newly resolved commit. Whether that goes through helpers like #42’s <code>resolveContent()</code> and <code>handleContent()</code> is not decided." } },
   servercontent:{ name:'Server content', api:'auto-imported in Nitro', own:'nc', rt:'server', on:ALL,
     what:"The comark-content instance or hub from the entry, available as <code>content</code> in server code.",
     src:[v('module.ts','103')],
@@ -528,7 +609,8 @@ const B = {
     what:"The index plus every parsed body. A gzip+base64 <code>CacheArtifact</code>. Read by the server once per instance on the first uncached body; by the browser in hybrid.",
     src:[cc('types/source.ts','7-14'), v('module.ts','506-512'), cc('content.ts','858-881')],
     v3:"v3 ships a gzipped, base64 JSON array of SQL lines per collection, bundled in the server (node) or as public assets (Cloudflare). "+v3('src/utils/templates.ts','14-21'),
-    br:{ pr42:"Prerendered through the surface’s handler: a live surface’s artifacts are stamped with the build ref. "+p42('module.ts','480-535') }, zoom:'artifacts' },
+    br:{ pr42:"Prerendered through the surface’s handler: a live surface’s artifacts are stamped with the build ref. "+p42('module.ts','480-535'),
+      prop:"Kept, and stamped with a commit by the build. With an empty cache it supplies the index and bodies at the same commit, and the unchanged files at a newer one. A new commit never rewrites it: only the next build does." }, zoom:'artifacts' },
   types:{ name:'Generated types', api:'content/types.d.ts', own:'nc', rt:'build', on:ALL,
     what:"Generated by reading every instance’s manifest.",
     src:[v('module.ts','228-258'), v('module.ts','284-313')],
@@ -560,6 +642,25 @@ const B = {
     what:"A watcher and HMR events on top of the dev copy.",
     src:[v('module.ts','445-464'), v('module.ts','376-392')],
     v3:"v3 watches local sources with chokidar, updates the local SQLite and pushes SQL over the Vite HMR socket to the browser’s WASM DB. "+v3('src/utils/dev.ts','150-240') },
+  // Proposed live mode: no code exists, so `src` only lists the engine code it would run on.
+  liveprop:{ name:'live option', api:'live: { ref, maxAge }', own:'nc', rt:'server', on:['prop'],
+    what:"<code>ref</code> is a function returning the commit SHA to serve; requests are served from <code>content.withRef(sha)</code>. A stored commit younger than <code>maxAge</code> is served without calling <code>ref</code> again. Only the <code>content</code> export can be live, at <code>/__nuxt_content</code>, in <code>server-only</code> mode.",
+    note:"#42’s option is <code>live: { ref, maxAge, snapshot }</code>. Its <code>snapshot</code> flag is not part of what was discussed for the proposal.",
+    open:"Whether <code>live</code> is only accepted for a source that can be pinned to a commit (<code>forge()</code>, or a custom source with <code>withRef</code>) is not decided.",
+    src:[cc('content.ts','1466-1513')], zoom:'proposed' },
+  forgeref:{ name:'forgeRef()', api:'forgeRef(forgeOptions) → live.ref', own:'nc', rt:'server', on:['prop'], isOpen:true,
+    what:"A helper exported by Nuxt Content. It takes the options given to <code>forge()</code> and returns a function resolving the last commit that touches the source’s <code>path</code> on its branch, through <code>provider.commits.list(repo, { ref, path, perPage: 1 })</code> from <code>forges</code>.",
+    open:"Still open. <code>live.ref</code> stays a plain function, so an app can pass its own. Measured on comark-docs: the branch head is <a target=\"_blank\" href=\"https://github.com/comarkdown/comark-docs/commit/a3ebf99f245d4368a52625574ddb970aef7b12b3\">a3ebf99</a>, a code-only commit, and <code>forgeRef</code> with <code>path: 'playground/content'</code> returns <a target=\"_blank\" href=\"https://github.com/comarkdown/comark-docs/commit/04157092e978d3bfd37dcf338014faac02ae476d\">0415709</a>. A code-only push does not look like new content.",
+    src:[], zoom:'proposed' },
+  revalidate:{ name:'revalidateContent()', api:'→ { from, to, changed, removed, navigation }', own:'nc', rt:'server', on:['prop'],
+    what:"Calls <code>live.ref()</code> once, stores the new commit, and returns what changed between the old and the new manifest. Nuxt Content has no Vercel or purge code: the app’s webhook route verifies the signature, calls it, maps the changed paths to URLs and purges its ISR cache.",
+    note:"In #42 it only deletes a cache key, and does nothing without <code>maxAge</code>. "+p42('runtime/server/content.ts','339-352'),
+    src:[cc('types/manifest.ts','4-23')], zoom:'proposed' },
+  storedcommit:{ name:'Stored commit', api:'in cache.driver · age checked against maxAge', own:'nc', rt:'server', on:['prop'],
+    what:"The resolved commit is stored in the same <code>cache.driver</code> the app passes for parsed content, and Nuxt Content checks its age itself. On a request: read it; younger than <code>maxAge</code>, serve it without calling <code>live.ref</code>; otherwise call <code>live.ref()</code> and store the result. Servers sharing the driver serve the same commit. Without a driver it is kept in memory, per server.",
+    note:"#42 keeps the ref in Nitro’s <code>cache</code> storage. "+p42('runtime/server/content.ts','289-301'),
+    open:"The key it is stored under is not named yet.",
+    src:[cc('content/cache.ts','159-181')], zoom:'proposed' },
 };
 /* ---------- usage ---------- */
 // Each entry: { intro?, blocks: [{ t, code }], after?, src? }. Shown in the inspector under "Usage".
@@ -814,21 +915,53 @@ const { data: page } = await useAsyncData(\`page-\${route.path}\`, () =>
 + const doc = await content.get(path)` }],
     src:[MIG(182,187)] },
 };
+// Proposed live mode: written from the design, not from code.
+const PROP_ENTRY = `// server/content.ts
+const github = { provider, repo: 'owner/name', ref: 'main', path: 'content' }
+
+export const content = createNuxtContent({
+  mode: 'server-only',
+  source: forge(github),
+  cache: { driver },                 // the app's own unstorage driver
+  live: { ref: forgeRef(github), maxAge: 3600 },
+})`;
+const PROP_HOOK = `// The app's webhook route. verifySignature, toUrls and purge
+// stand for the app's own code.
+export default defineEventHandler(async (event) => {
+  await verifySignature(event)                    // the app
+  const diff = await revalidateContent(content)   // Nuxt Content
+  // diff: { from, to, changed, removed, navigation }
+  await purge(toUrls(diff))                       // the app
+})`;
+Object.assign(U, {
+  liveprop:{ intro:'Proposed, no code yet.', blocks:[{ t:'A live content', code:PROP_ENTRY }] },
+  forgeref:{ intro:'Proposed and still open.', blocks:[{ t:'Same options as forge()', code:
+`const github = { provider, repo: 'owner/name', ref: 'main', path: 'content' }
+
+source: forge(github),
+live: { ref: forgeRef(github), maxAge: 3600 }` }, { t:'Or any function returning a commit SHA', code:
+`live: { ref: async () => commitToServe(), maxAge: 3600 }` }] },
+  revalidate:{ intro:'Proposed, no code yet. A sketch of the calling route:', blocks:[{ t:'The app’s webhook route', code:PROP_HOOK }],
+    after:'What each field of the returned object holds is not defined yet.' },
+});
 Object.entries(U).forEach(([k, u]) => { if (B[k]) B[k].use = u; });
 
-const ZOOMNAME = { live:'Live mode in #42', artifacts:'Manifest & snapshot', read:'A read, step by step' };
+const ZOOMNAME = { live:'Live mode in #42', proposed:'Live mode · proposed', artifacts:'Manifest & snapshot', read:'A read, step by step' };
 
 /* ---------- state ---------- */
 const branch = 'v4';
 let mode = 'so';
 const isPr = b => b.on.length === 1 && b.on[0] === 'pr42';
+const isProp = b => b.on.length === 1 && b.on[0] === 'prop';
+const PROP_BADGE = '<span class="badge o-prop" data-tip="o_prop">proposed</span>';
+const OPEN_BADGE = '<span class="badge s-part" data-tip="st_open">open</span>';
 function renderBricks(){
   document.querySelectorAll('.brick[data-id]').forEach(el => {
     const b = B[el.dataset.id]; if (!b) return;
-    el.classList.toggle('g', b.own==='v3'); el.classList.toggle('pr', isPr(b));
+    el.classList.toggle('g', b.own==='v3'); el.classList.toggle('pr', isPr(b)); el.classList.toggle('prop', isProp(b));
     const [oc, ol] = OWN[b.own];
     el.innerHTML = `<span class="nm">${b.name}</span><span class="api">${esc(b.api)}</span>
-      <span class="meta"><span class="badge ${oc}" data-tip="o_${b.own}">${ol}</span><span class="rt" data-tip="rt_${b.rt}">${RTL[b.rt]}</span>${isPr(b) ? '<span class="badge o-pr" data-tip="o_pr">#42 live</span>' : ''}</span>`;
+      <span class="meta"><span class="badge ${oc}" data-tip="o_${b.own}">${ol}</span><span class="rt" data-tip="rt_${b.rt}">${RTL[b.rt]}</span>${isPr(b) ? '<span class="badge o-pr" data-tip="o_pr">#42 live</span>' : ''}${isProp(b) ? PROP_BADGE : ''}${b.isOpen ? OPEN_BADGE : ''}</span>`;
   });
 }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -840,7 +973,7 @@ function intro(){
   current = null;
   document.querySelectorAll('.sel').forEach(e => e.classList.remove('sel'));
   panel.innerHTML = `<button class="close">Close</button><div class="eyebrow"><span class="badge o-neutral">Inspector</span></div>
-    <h2>Pick a brick</h2><p>Each brick shows who owns it and where it runs. Solid bricks are v4. Dashed grey ones with a red badge are v3 compat (to be deleted). Dashed darker grey ones with a blue badge only exist in draft #42 (live mode).</p>
+    <h2>Pick a brick</h2><p>Each brick shows who owns it and where it runs. Solid bricks are v4. Dashed grey ones with a red badge are v3 compat (to be deleted). Dashed darker grey ones with a blue badge only exist in draft #42 (live mode). Dashed purple ones are the proposed live mode: no code exists for them yet.</p>
     <h4>Owners</h4><ul><li><b>comark-content</b>: the engine.</li><li><b>Nuxt Content</b>: what the module wires on top.</li><li><b>v3 compat</b>: kept for v3 apps, to be deleted (dashed grey, red badge).</li></ul>`;
 }
 function showBrick(id){
@@ -849,16 +982,17 @@ function showBrick(id){
   document.querySelectorAll('.sel').forEach(e => e.classList.remove('sel'));
   document.querySelectorAll(`.brick[data-id="${id}"]`).forEach(e => e.classList.add('sel'));
   const [oc, ol] = OWN[b.own];
-  const stBadge = isPr(b) ? '<span class="badge o-pr" data-tip="o_pr">#42 live mode</span>' : '';
+  const stBadge = (isPr(b) ? '<span class="badge o-pr" data-tip="o_pr">#42 live mode</span>' : '') + (isProp(b) ? PROP_BADGE : '') + (b.isOpen ? OPEN_BADGE : '');
   let h = `<button class="close">Close</button><div class="eyebrow"><span class="badge ${oc}" data-tip="o_${b.own}">${ol}</span><span class="rt" data-tip="rt_${b.rt}">${RTL[b.rt]}</span>${stBadge}</div>
     <h2>${b.name}</h2><p class="api">${esc(b.api)}</p><p>${b.what}</p>`;
   if (b.note) h += `<div class="call pr"><div class="t">Note</div><p>${b.note}</p></div>`;
   if (b.compat) h += `<div class="call v3"><div class="t">v3 compat · to be deleted</div><p>${b.compat}</p></div>`;
-  if (b.open) h += `<div class="call pr"><div class="t">Open</div><p>${b.open}</p></div>`;
+  if (b.open) h += `<div class="call ${isProp(b)?'open':'pr'}"><div class="t">Open</div><p>${b.open}</p></div>`;
   if (b.cc) h += `<div class="call cc"><div class="t">From comark-content</div><p>${b.cc}</p></div>`;
   if (b.v3) h += `<div class="call v3"><div class="t">In v3</div><p>${b.v3}</p></div>`;
   if (b.use) h += renderUse(b.use);
-  h += `<h4>Source</h4><ul class="links">${b.src.map(s => `<li>${s}</li>`).join('')}</ul>`;
+  if (isProp(b)) h += `<h4>Source</h4><p>None: proposed, no code yet.</p>${b.src.length ? `<h4>Runs on</h4><ul class="links">${b.src.map(s => `<li>${s}</li>`).join('')}</ul>` : ''}`;
+  else h += `<h4>Source</h4><ul class="links">${b.src.map(s => `<li>${s}</li>`).join('')}</ul>`;
   if (b.zoom) h += `<button class="btn zoombtn" data-zoom="${b.zoom}">Zoom in: ${ZOOMNAME[b.zoom]} →</button>`;
   panel.innerHTML = h; panel.classList.add('open'); panel.scrollTop = 0;
 }
@@ -887,9 +1021,11 @@ function showMoment(r, lanes){
   current = null;
   document.querySelectorAll('.sel').forEach(e => e.classList.remove('sel'));
   const m = momentMeta(r); const [oc, ol] = OWN[m.own];
-  let h = `<button class="close">Close</button><div class="eyebrow"><span class="badge ${oc}" data-tip="o_${m.own}">${ol}</span><span class="rt" data-tip="rt_${m.rt}">${RTL[m.rt]}</span>${r.isNew?'<span class="badge o-pr" data-tip="o_pr">#42 live mode</span>':''}<span class="badge o-neutral">${lanes[r.lane]}</span></div><h2>${r.t}</h2>${r.s?`<p class="api">${esc(r.s)}</p>`:''}<p>${r.x}</p>`;
+  let h = `<button class="close">Close</button><div class="eyebrow"><span class="badge ${oc}" data-tip="o_${m.own}">${ol}</span><span class="rt" data-tip="rt_${m.rt}">${RTL[m.rt]}</span>${r.isNew?'<span class="badge o-pr" data-tip="o_pr">#42 live mode</span>':''}${r.prop?PROP_BADGE:''}${r.open?OPEN_BADGE:''}<span class="badge o-neutral">${lanes[r.lane]}</span></div><h2>${r.t}</h2>${r.s?`<p class="api">${esc(r.s)}</p>`:''}<p>${r.x}</p>`;
   if (r.v3) h += `<div class="call v3"><div class="t">In v3</div><p>${r.v3}</p></div>`;
-  if (r.src) h += `<h4>Source</h4><ul class="links">${r.src.map(s=>`<li>${s}</li>`).join('')}</ul>`;
+  if (r.und) h += `<div class="call open"><div class="t">Not decided</div><p>${r.und}</p></div>`;
+  if (r.src) h += `<h4>${r.prop ? 'Related code, not the proposal' : 'Source'}</h4><ul class="links">${r.src.map(s=>`<li>${s}</li>`).join('')}</ul>`;
+  else if (r.prop) h += `<h4>Source</h4><p>None: proposed, no code yet.</p>`;
   if (r.brick) h += `<p style="margin-top:12px"><button class="linkbtn" data-open="${r.brick}">Open the ${B[r.brick].name} brick</button></p>`;
   panel.innerHTML = h; panel.classList.add('open'); panel.scrollTop = 0;
 }
@@ -907,7 +1043,7 @@ function makeTimeline(mount, cfg){
   let step = cfg.rows.length; // show all by default
   mount.innerHTML = `<div class="controls"><button class="btn primary" data-a="next">Step through</button><button class="btn" data-a="back">Back</button><button class="btn" data-a="all">Show all</button><span class="counter"></span></div>
     <div class="scroller"><div class="tl"><div class="tl-head" style="grid-template-columns:${cols}">${cfg.lanes.map(l=>`<div>${l}</div>`).join('')}</div>
-    ${cfg.rows.map((r,i)=>`<div class="trow" data-i="${i}" style="grid-template-columns:${cols}">${cfg.lanes.map((_,li)=> li===r.lane ? `<div><button class="card2 ${r.isNew?'new':''} ${r.warn?'warn':''}" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${r.t}</span>${r.s?`<span class="s">${esc(r.s)}</span>`:''}</button></div>` : '<div></div>').join('')}</div>`).join('')}
+    ${cfg.rows.map((r,i)=>`<div class="trow" data-i="${i}" style="grid-template-columns:${cols}">${cfg.lanes.map((_,li)=> li===r.lane ? `<div><button class="card2 ${r.isNew?'new':''} ${r.prop?'prop':''} ${r.open?'open':''} ${r.skip?'skip':''} ${r.warn?'warn':''}" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${r.t}</span>${r.s?`<span class="s">${esc(r.s)}</span>`:''}</button></div>` : '<div></div>').join('')}</div>`).join('')}
     </div></div>`;
   const rows = [...mount.querySelectorAll('.trow')];
   const counter = mount.querySelector('.counter');
@@ -917,7 +1053,8 @@ function makeTimeline(mount, cfg){
     counter.textContent = step < cfg.rows.length ? `${step+1} / ${cfg.rows.length}` : `${cfg.rows.length} moments`;
     nextBtn.textContent = step >= cfg.rows.length ? 'Step through' : step === cfg.rows.length-1 ? 'Restart' : 'Next';
   }
-  mount.addEventListener('click', e => {
+  // `onclick`, not addEventListener: a mount is rendered again on every mode or situation switch.
+  mount.onclick = e => {
     const a = e.target.closest('[data-a]');
     if (a) {
       if (a.dataset.a==='next') step = step >= cfg.rows.length-1 ? 0 : step+1;
@@ -928,7 +1065,7 @@ function makeTimeline(mount, cfg){
       return;
     }
     const c = e.target.closest('.card2'); if (c) { step = +c.dataset.i; paint(); showMoment(cfg.rows[step], cfg.lanes); }
-  });
+  };
   paint();
 }
 
@@ -1055,6 +1192,252 @@ body     = artifact.hash === forge.blobId(path) ? reuse : forge.read(path)</pre>
   ].map(([h,p])=>`<div class="wi"><h4>${h}</h4><p>${p}</p></div>`).join('');
 }
 
+/* ---------- live tab (proposed) ---------- */
+// No code exists for the proposal. Rows with `prop` are proposed Nuxt Content behaviour (purple).
+// The others are comark-content 0.6.2 as it works today, with links. `skip` draws a call that is not made.
+const PROP_LANES = ['Trigger','Nitro server','live.ref()','GitHub','cache.driver','Build snapshot'];
+const NS = 'ref:<name>%3A<sha>';
+const X_FORGEREF = 'With <code>forgeRef(github)</code> (still open) this is one <code>commits.list</code> request. <code>live.ref</code> is a plain function, so an app can pass its own.';
+const X_MISS = 'Nothing is stored: a first deploy, a flushed driver, or a new server without a shared driver.';
+const PM = {
+  req: s => ({ lane:0, t:'Request /docs/intro', s, own:'nc', rt:'server', prop:true,
+    x:'A read reaches <code>/__nuxt_content</code>. Only the <code>content</code> export can be live, in <code>server-only</code> mode, so every read comes through this route.' }),
+  commit: (s, x) => ({ lane:4, t:'Read the stored commit', s, own:'nc', rt:'server', prop:true, brick:'storedcommit',
+    x:x+' The commit is stored in the same <code>cache.driver</code> the app passes for parsed content, and Nuxt Content checks its age itself. Without a driver it is kept in memory, per server.' }),
+  ref: (s, x, extra) => ({ lane:2, t:'live.ref()', s, own:'nc', rt:'server', prop:true, brick:'liveprop', x:x+' '+X_FORGEREF, ...extra }),
+  resolve: (x, extra) => ({ lane:3, t:'Resolve the commit', s:'commits.list(repo, { ref, path, perPage: 1 })', own:'nc', rt:'server', prop:true, brick:'forgeref',
+    x:'One request to GitHub: the last commit that touches the source’s <code>path</code> on its branch. '+x, ...extra }),
+  store: s => ({ lane:4, t:'Store the commit', s, own:'nc', rt:'server', prop:true, brick:'storedcommit',
+    x:'The result is written to <code>cache.driver</code>. Servers sharing the driver now serve this commit without calling <code>live.ref()</code>, until it is older than <code>maxAge</code>.',
+    und:'The key it is stored under is not named yet.' }),
+  pin: () => ({ lane:1, t:'content.<wbr>withRef(commit)', s:'instance pinned to the commit', own:'cc', rt:'server', brick:'withref',
+    x:'Requests are served from <code>content.withRef(sha)</code>. comark-content creates an instance with the same options, the source pinned to the commit (<code>forge({ …, ref: sha })</code>) and cache keys under <code>ref:&lt;name&gt;%3A&lt;sha&gt;</code>.',
+    und:'How many pinned instances a server keeps, and when old ones are released.',
+    src:[cc('content.ts','1466-1513'), cc('sources/forge.ts','86'), cc('content/cache.ts','159-173')] }),
+  tree: () => ({ lane:3, t:'List the tree', s:'contents.tree(repo, { ref, path, recursive })', own:'cc', rt:'server', brick:'sources',
+    x:'The pinned <code>forge()</code> source lists the files under <code>path</code> with their git blob IDs: one recursive request where the forge can.',
+    src:[cc('sources/forge.ts','74-81'), cc('sources/forge.ts','116-160')] }),
+  changed: against => ({ lane:3, t:'Read only the changed files', s:'contents.getFile(repo, path, { ref })', own:'cc', rt:'server', brick:'sources',
+    x:`A file listed with the same blob ID as its entry in ${against} has the same content: the entry is taken as it is and the file is not read. Only files with a new blob ID are read, one request each (github.com’s raw CDN). Their text is kept, so the first full parse does not fetch again.`,
+    src:[cc('content.ts','1182-1252'), cc('sources/forge.ts','48-60')] }),
+  written: (s, x) => ({ lane:4, t:'New index and changed files written', s, own:'cc', rt:'server', brick:'cache',
+    x:'The index is persisted under the namespace of the commit, and <code>latest-ref:&lt;name&gt;</code> names that commit for later instances. The text of the changed files is stored too, also by blob ID, where instances at other commits find it. '+x,
+    src:[cc('content.ts','399-417'), cc('content.ts','1362-1373'), cc('content/cache.ts','44-58')] }),
+  answer: s => ({ lane:1, t:'Return parsed body', s, own:'cc', rt:'server', brick:'handler', x:'The handler of the pinned instance answers the request.' }),
+};
+const SITS = [
+  { id:'warm', label:'Commit in the cache', name:'Request, commit already in the shared cache', sub:'A new server, or any request while the stored commit is younger than maxAge.',
+    ref:[0,''], gh:[0,''],
+    cache:[['r','the stored commit, in one read'], ['r','then the index and bodies of that commit']],
+    snap:[['r','only for a body the cache lacks, when its blob ID is unchanged since the build']],
+    rows:[
+      PM.req('new server, or any request'),
+      PM.commit('1 read · found, younger than maxAge', 'Another server, or the last push, already stored the commit.'),
+      { lane:2, t:'Not called', s:'the stored commit is young enough', own:'nc', rt:'server', prop:true, skip:true, brick:'liveprop',
+        x:'The stored commit is younger than <code>maxAge</code>, so it is served without calling <code>live.ref()</code>.' },
+      { lane:3, t:'Not called', s:'nothing to resolve or list', own:'nc', rt:'server', prop:true, skip:true,
+        x:'There is no commit to resolve, and the index of the stored commit is already in the cache. GitHub is not called.' },
+      PM.pin(),
+      { lane:4, t:'Index of that commit', s:`${NS} · manifest`, own:'cc', rt:'server', brick:'index',
+        x:'<code>init()</code> finds the index a server persisted for this commit and uses it. The build manifest is read from server assets as well; when it is stamped with another commit it is foreign and the persisted index is kept. The tree is not listed.',
+        src:[cc('content.ts','304-357'), cc('content/cache.ts','159-173')] },
+      { lane:4, t:'Bodies', s:`${NS} · <name>:<path>`, own:'cc', rt:'server', brick:'cache',
+        x:'A read tries the cache first, then a snapshot body with the same blob ID, then a body another commit parsed from the same blob, and only then the source. With the files of the commit already in the shared cache, GitHub is not called.',
+        src:[cc('content.ts','1092-1103')] },
+      PM.answer('at the stored commit'),
+    ] },
+  { id:'same', label:'Empty cache · same commit', name:'New server, cache empty, same commit as the snapshot', sub:'First request after a deploy, a flushed driver, or no shared driver.',
+    ref:[1,'Once.'], gh:[1,'One request, to resolve the commit.'],
+    cache:[['r','the stored commit: miss'], ['w','the commit, then the index and bodies the snapshot supplied']],
+    snap:[['r','the index (build manifest) and every body']],
+    rows:[
+      PM.req('cold server, empty cache'),
+      PM.commit('miss', X_MISS),
+      PM.ref('called once', 'No commit is stored, so Nuxt Content calls <code>live.ref()</code>.'),
+      PM.resolve('It is the only GitHub request of this situation.'),
+      PM.store('then served by every server'),
+      PM.pin(),
+      { lane:5, t:'Build manifest is the index', s:'stamped with the same commit', own:'cc', rt:'server', brick:'manifest',
+        x:'<code>init()</code> finds no persisted index and reads the build manifest from server assets. It is stamped with the commit being served, so it is not foreign: it becomes the index and is persisted. The tree is not listed.',
+        src:[cc('content.ts','304-346'), v('runtime/server/content.ts','50-55')] },
+      { lane:5, t:'Bodies from the snapshot', s:'read once, on the first uncached body', own:'cc', rt:'server', brick:'snapshot',
+        x:'The snapshot is read once per instance. A body is used when its <code>meta.hash</code> matches the index, which is every body at the same commit.',
+        src:[cc('content.ts','858-903'), v('runtime/server/content.ts','46-49')] },
+      { lane:4, t:'Index and bodies written', s:NS, own:'cc', rt:'server', brick:'cache',
+        x:'What the snapshot supplied is written to the cache under the namespace of the commit. The next server finds it there.',
+        src:[cc('content/cache.ts','159-173')] },
+      PM.answer('at the resolved commit'),
+    ] },
+  { id:'newer', label:'Empty cache · newer commit', name:'New server, cache empty, newer commit', sub:'Content was pushed since the build, and nothing is cached.',
+    ref:[1,'Once.'], gh:[1,'Resolve, list the tree, read only the changed files.'],
+    cache:[['r','the stored commit: miss'], ['w','the commit, the new index, the changed files']],
+    snap:[['r','supplies the unchanged files: index entries and bodies']],
+    rows:[
+      PM.req('cold server, empty cache'),
+      PM.commit('miss', X_MISS),
+      PM.ref('called once', 'No commit is stored, so Nuxt Content calls <code>live.ref()</code>.'),
+      PM.resolve('It returns a commit newer than the one the snapshot is stamped with.'),
+      PM.store('then served by every server'),
+      PM.pin(),
+      { lane:5, t:'Build manifest is foreign', s:'stamped with the commit of the build', own:'cc', rt:'server', brick:'manifest',
+        x:'<code>init()</code> finds no persisted index and reads the build manifest from server assets. Stamped with another commit, it cannot be the index: a file removed since would still be listed. Its entries are kept as candidates to reuse by blob ID.',
+        src:[cc('content.ts','304-336'), cc('types/manifest.ts','8-15')] },
+      PM.tree(),
+      PM.changed('the build manifest'),
+      PM.written(`${NS} · latest-ref:<name>`, ''),
+      { lane:5, t:'Unchanged bodies from the snapshot', s:'meta.hash still matches', own:'cc', rt:'server', brick:'snapshot',
+        x:'On the first uncached body the snapshot is read once. Bodies whose <code>meta.hash</code> match the new index are used; a changed file is parsed from the text read above. The snapshot itself is not rewritten: only the next build does.',
+        src:[cc('content.ts','883-903'), cc('content.ts','1092-1103')] },
+      PM.answer('at the resolved commit'),
+    ] },
+  { id:'push', label:'A push', name:'A push: the webhook calls revalidateContent()', sub:'The normal way a new commit arrives.',
+    ref:[1,'Once, always.'], gh:[1,'Resolve, list the tree, read only the changed files.'],
+    cache:[['r','the index of the previous commit'], ['w','the new commit, the new index, the changed files']],
+    snap:[['—','not rewritten: only the next build does']],
+    rows:[
+      { lane:0, t:'GitHub sends the push', s:'POST to the app’s webhook route', own:'app', rt:'server',
+        x:'The route belongs to the app. It verifies the signature, then calls <code>revalidateContent(content)</code>. Nuxt Content has no Vercel or purge code.' },
+      { lane:1, t:'revalidate<wbr>Content(content)', s:'called by the app’s route', own:'nc', rt:'server', prop:true, brick:'revalidate',
+        x:'Resolves and stores the new commit, then returns what changed. In #42 it only deletes a cache key, and does nothing without <code>maxAge</code>.',
+        src:[p42('runtime/server/content.ts','339-352')] },
+      PM.ref('called once, always', 'Called on every push, even when the stored commit is younger than <code>maxAge</code>.'),
+      PM.resolve('With <code>forgeRef</code>, a code-only push returns the same commit as before.'),
+      PM.store('the new commit'),
+      { lane:4, t:'Read the previous index', s:'latest-ref:<name> → its manifest', own:'cc', rt:'server', brick:'cache',
+        x:'The instance at the new commit has no index yet, so it walks its source. comark-content first looks for the index an instance at another commit persisted last on this driver: that commit is usually closer to the new one than the build is. Its entries, and those of the build manifest, are candidates to reuse by blob ID. This needs a <code>cache.driver</code>: without one, each pinned instance has an in-memory cache of its own and only the build manifest is reused.',
+        src:[cc('content.ts','399-417'), cc('content.ts','1382-1396'), cc('content/cache.ts','44-58'), cc('content/cache.ts','143-148')] },
+      PM.tree(),
+      PM.changed('the previous index or the build manifest'),
+      PM.written(`${NS} · by-hash:<name>:<blob>:<path>`, 'All of it goes to the shared cache, so other servers read it there.'),
+      { lane:1, t:'Compare the two manifests', s:'{ from, to, changed, removed, navigation }', own:'nc', rt:'server', prop:true, brick:'revalidate',
+        x:'<code>revalidateContent()</code> returns what changed between the manifest of the previous commit and the new one. Manifest items carry <code>meta.hash</code>, the git blob ID of each file.',
+        und:'What each field of the returned object holds.',
+        src:[cc('types/manifest.ts','4-23'), cc('types/file.ts','43-53')] },
+      { lane:0, t:'The app purges its ISR cache', s:'changed paths → URLs', own:'app', rt:'server',
+        x:'The route maps the changed paths to URLs and purges them. This stays in the app.' },
+      { lane:5, t:'Not rewritten', s:'only the next build does', own:'nc', rt:'server', prop:true, skip:true, brick:'snapshot',
+        x:'A new commit never rewrites the snapshot. It keeps supplying the files that have not changed since the build.' },
+      { lane:4, t:'Next request', s:'reads the new commit · live.ref() not called', own:'nc', rt:'server', prop:true, brick:'storedcommit',
+        x:'The stored commit is young, so the next request is the first situation: one cache read for the commit, no GitHub.' },
+    ] },
+  { id:'stale', label:'maxAge passed', name:'Request, stored commit older than maxAge', sub:'The safety net for a missed hook.',
+    ref:[1,'Once, then stored for every server.'], gh:[1,'Resolve. If the commit moved: the tree and the changed files.'],
+    cache:[['r','the stored commit: too old'], ['w','the result, plus the new index and files if the commit moved']],
+    snap:[['r','if the commit moved: the files unchanged since the build']],
+    rows:[
+      PM.req('any server'),
+      PM.commit('found · older than maxAge', 'A commit is stored, but it is older than <code>maxAge</code>.'),
+      PM.ref('called once', 'This is the safety net for a missed hook.', { und:'Whether the request waits for this call. It is drawn as waiting. #42 keeps serving the old ref while <code>ref</code> is called again in the background. '+p42('runtime/server/content.ts','94-100') }),
+      PM.resolve('It returns the same commit, or a newer one.'),
+      PM.store('then stored for every server'),
+      { lane:1, t:'Same commit: serve from the cache', s:'nothing else is read', own:'cc', rt:'server', brick:'cache',
+        x:'If the commit did not move, its index and bodies are already in the cache.' },
+      { lane:3, t:'New commit: tree, then changed files', s:'the same requests as after a push', own:'cc', rt:'server', brick:'sources',
+        x:'If the commit moved, the instance at the new commit lists the tree and reads only the changed files, as after a push. No diff is returned: that is what <code>revalidateContent()</code> is for.',
+        src:[cc('content.ts','399-417'), cc('sources/forge.ts','116-160')] },
+      PM.answer('at the resolved commit'),
+    ] },
+  { id:'fail', label:'live.ref() fails', name:'live.ref() fails', sub:'GitHub is down or rate limited, or the token is wrong.',
+    ref:[1,'Called, and it throws.'], gh:[1,'The call fails.'],
+    cache:[['r','the stored commit keeps being served']],
+    snap:[['r','cold start with an empty cache: the commit the snapshot is stamped with is served']],
+    rows:[
+      PM.req('any server'),
+      PM.commit('older than maxAge, or none', 'Nothing young enough is stored, so the commit has to be resolved.'),
+      PM.ref('called once · throws', 'The call rejects.', { warn:true }),
+      { lane:3, t:'The call to GitHub fails', s:'outage, rate limit, bad token', own:'nc', rt:'server', prop:true, warn:true,
+        x:'<code>live.ref()</code> gets no commit. The page request is still answered.' },
+      { lane:4, t:'Stored commit keeps being served', s:'when one is stored', own:'nc', rt:'server', prop:true, brick:'storedcommit',
+        x:'If a commit is stored, even older than <code>maxAge</code>, it keeps being served. Kept from #42, which serves the last ref.',
+        src:[p42('runtime/server/content.ts','261-287')] },
+      { lane:5, t:'Otherwise, the commit of the snapshot', s:'cold start, empty cache', own:'nc', rt:'server', prop:true, brick:'snapshot',
+        x:'With nothing stored, the commit the build snapshot is stamped with is served: the build manifest is the index and the bodies come from the snapshot, without GitHub. Kept from #42.',
+        src:[p42('runtime/server/content.ts','261-287'), cc('content.ts','337-346')] },
+      PM.answer('at the last known commit'),
+    ] },
+  { id:'build', label:'Build', name:'Build', sub:'nuxt build writes the snapshot.',
+    ref:[1,'Once, to stamp the snapshot.'], gh:[1,'Resolve the commit. Reading the files at that commit is open (leaning yes).'],
+    cache:[['—','']],
+    snap:[['w','manifest and snapshot in server assets, stamped with the commit']],
+    rows:[
+      { lane:0, t:'nuxt build', s:'prerenders the manifest and the snapshot', own:'nc', rt:'build',
+        x:'v4 already prerenders both artifact routes during the build.', src:[v('module.ts','468-472')] },
+      PM.ref('called once', 'Called once during the build, to know the commit the snapshot is stamped with.', { rt:'build' }),
+      PM.resolve('', { rt:'build' }),
+      { lane:3, t:'Read the files at that commit', s:'open · leaning yes', own:'nc', rt:'build', prop:true, open:true,
+        x:'Whether the build reads the snapshot from the source at the commit <code>live.ref</code> returns, as #42 does, is still open. Leaning yes.',
+        src:[p42('module.ts','480-535')] },
+      { lane:5, t:'Manifest and snapshot written', s:'server assets · stamped with the commit', own:'nc', rt:'build', prop:true, brick:'snapshot',
+        x:'Both artifacts are kept in server assets, as on v4, and carry the commit. comark-content stamps the artifacts of a pinned instance with its ref.',
+        src:[v('module.ts','478-513'), cc('types/manifest.ts','8-15')] },
+      { lane:5, t:'Fixed until the next build', s:'never rewritten at runtime', own:'nc', rt:'build', prop:true, skip:true,
+        x:'A new commit never rewrites the snapshot: only the next build does.' },
+    ] },
+];
+const called = ([on, text]) => `<div class="cell"><span class="badge ${on?'b-on':'b-off'}">${on?'called':'not called'}</span>${text?`<span>${text}</span>`:''}</div>`;
+const rw = list => `<div class="cell">${list.map(([k, text]) => k==='—' ? `<span>—${text?' '+text:''}</span>` : `<span><span class="rw ${k==='w'?'w':''}">${k==='w'?'written':'read'}</span>${text}</span>`).join('')}</div>`;
+let sit = 'warm';
+function renderSit(scroll){
+  const s = SITS.find(x => x.id === sit);
+  document.querySelectorAll('#prop-pick button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sit === sit)));
+  document.querySelectorAll('#prop-matrix tr.pick').forEach(r => r.classList.toggle('hl', r.dataset.sit === sit));
+  document.getElementById('prop-tally').innerHTML = [['live.ref()', called(s.ref)], ['GitHub', called(s.gh)], ['cache.driver', rw(s.cache)], ['Build snapshot', rw(s.snap)]]
+    .map(([l, c]) => `<div><span class="lbl">${l}</span>${c}</div>`).join('');
+  makeTimeline(document.getElementById('tl-prop'), { lanes:PROP_LANES, rows:s.rows });
+  if (scroll) document.getElementById('prop-steps').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start' });
+}
+function renderProposed(){
+  document.getElementById('prop-formulas').innerHTML = `
+<pre class="formula prop"><h5>the entry · proposed</h5>${hl(PROP_ENTRY)}</pre>
+<pre class="formula prop"><h5>per request · content at /__nuxt_content</h5>stored   = cache.driver → commit      <span class="c">// the driver of parsed content</span>
+commit   = stored younger than maxAge
+             ? stored                  <span class="c">// live.ref() is not called</span>
+             : await live.ref()        <span class="c">// then stored for every server</span>
+           <span class="c">// live.ref() fails → stored ?? buildSnapshot.ref</span>
+instance = content.withRef(commit)
+body     = cache ?? snapshot body with the same blob ID
+                 ?? forge.read(path)   <span class="c">// changed files only</span></pre>`;
+  document.getElementById('prop-matrix').innerHTML = `<table class="cmp"><thead><tr><th>Situation</th><th>live.ref()</th><th>GitHub</th><th>cache.driver</th><th>Build snapshot</th></tr></thead><tbody>${SITS.map(s => `<tr class="pick" data-sit="${s.id}"><th style="width:190px"><button class="linkbtn" data-sit="${s.id}">${s.name}</button><small>${s.sub}</small></th><td>${called(s.ref)}</td><td>${called(s.gh)}</td><td>${rw(s.cache)}</td><td>${rw(s.snap)}</td></tr>`).join('')}</tbody></table>`;
+  document.getElementById('prop-pick').innerHTML = SITS.map(s => `<button data-sit="${s.id}">${s.label}</button>`).join('');
+  document.getElementById('prop-matrix').onclick = e => { const r = e.target.closest('[data-sit]'); if (r) { sit = r.dataset.sit; renderSit(true); } };
+  document.getElementById('prop-pick').onclick = e => { const b = e.target.closest('[data-sit]'); if (b) { sit = b.dataset.sit; renderSit(); } };
+  renderSit();
+
+  document.getElementById('prop-push').innerHTML = `
+<pre class="formula prop"><h5>the app’s webhook route · sketch</h5>${hl(PROP_HOOK)}</pre>
+<div class="whatif" style="margin-top:0">
+  <div class="wi"><span class="badge o-nc" data-tip="o_nc">Nuxt Content</span>${PROP_BADGE}<h4 style="margin-top:8px">revalidateContent(content)</h4><p>Calls <code>live.ref()</code> once, stores the new commit in <code>cache.driver</code>, and returns what changed between the old and the new manifest: <code>{ from, to, changed, removed, navigation }</code>. No Vercel or purge code.</p></div>
+  <div class="wi"><span class="badge o-neutral" data-tip="o_app">The app</span><h4 style="margin-top:8px">The webhook route</h4><p>Verifies the signature, calls <code>revalidateContent()</code>, maps the changed paths to URLs and purges its ISR cache.</p></div>
+</div>`;
+
+  const KDU = { kept:['s-yes','kept'], deleted:['s-no','deleted'], updated:['s-part','updated'] };
+  const P42 = 'runtime/server/content.ts';
+  const kdu = [
+    ['kept', '<code>live.ref</code> returns a commit', '<code>ref()</code> returns the commit to serve.'+S([p42(P42,'83-93')]), 'Same: a function returning the commit SHA to serve.'],
+    ['kept', 'Serving through <code>withRef</code>', 'One pinned instance per resolved commit.'+S([p42(P42,'310-326')]), 'Requests are served from <code>content.withRef(sha)</code>.'],
+    ['kept', '<code>maxAge</code>', 'The resolved ref is reused for that many seconds.'+S([p42(P42,'94-100')]), 'Same option. Nuxt Content checks the age of the stored commit itself.'],
+    ['kept', '<code>server-only</code> requirement', 'A live <code>content</code> in hybrid throws at setup.'+S([p42('module.ts','105-109')]), 'Same: live only in <code>server-only</code> mode.'],
+    ['kept', 'Stamped build snapshot', 'The build resolves the ref and stamps the artifacts with it.'+S([p42('module.ts','480-535')]), 'The build keeps a manifest and a snapshot in server assets, stamped with a commit.'],
+    ['kept', 'When <code>live.ref</code> fails', 'The last ref keeps being served, or the ref of the build snapshot on a cold start.'+S([p42(P42,'261-287')]), 'Same: the stored commit keeps being served. On a cold start with an empty cache, the commit the snapshot is stamped with.'],
+    ['deleted', 'Extra surfaces and <code>basePath</code>', 'Every other export with a <code>handler</code> is a surface with its own <code>basePath</code>.'+S([p42('utils/config.ts','62-65'), p42('module.ts','539-568')]), 'Only the <code>content</code> export can be live, at <code>/__nuxt_content</code>.'],
+    ['deleted', 'The ref in Nitro’s <code>cache</code> storage', 'With <code>maxAge</code>, the ref goes through <code>defineCachedFunction</code> into Nitro’s <code>cache</code> storage.'+S([p42(P42,'289-301')]), 'Nothing is kept in Nitro’s <code>cache</code> storage.'],
+    ['updated', 'Where the commit is stored', 'Nitro’s <code>cache</code> storage. Servers serve the same ref when they share that storage.'+S([p42(P42,'289-301')]), 'The app’s <code>cache.driver</code>, the one it passes for parsed content. Servers sharing it serve the same commit. Without a driver: in memory, per server.'],
+    ['updated', '<code>revalidateContent()</code>', 'Deletes the cached ref. Does nothing without <code>maxAge</code>.'+S([p42(P42,'339-352')]), 'Calls <code>live.ref()</code> once, stores the new commit, and returns the diff between the old and the new manifest: <code>{ from, to, changed, removed, navigation }</code>.'],
+  ];
+  document.getElementById('prop-kdu').innerHTML = `<table class="cmp"><thead><tr><th></th><th>What</th><th>In #42</th><th>Proposed</th></tr></thead><tbody>${kdu.map(([k, what, was, now]) => `<tr><td style="width:90px"><span class="badge ${KDU[k][0]}">${KDU[k][1]}</span></td><th>${what}</th><td>${was}</td><td>${now}</td></tr>`).join('')}</tbody></table>`;
+
+  const changed = Object.values(B).filter(b => b.br && b.br.prop);
+  document.getElementById('prop-changes').innerHTML = `<table class="cmp"><thead><tr><th>v4 block</th><th>With the proposed live mode</th></tr></thead><tbody>${changed.map(b => `<tr><th>${b.name}<div style="margin-top:4px"><span class="badge ${OWN[b.own][0]}">${OWN[b.own][1]}</span></div></th><td>${b.br.prop}</td></tr>`).join('')}</tbody></table>`;
+
+  const commit = (sha, short) => `<a target="_blank" href="https://github.com/comarkdown/comark-docs/commit/${sha}">${short}</a>`;
+  document.getElementById('prop-open').innerHTML = [
+    ['forgeRef(forgeOptions)', 'A helper exported by Nuxt Content that returns the last commit touching the source’s <code>path</code> on its branch, through <code>provider.commits.list(repo, { ref, path, perPage: 1 })</code> from <code>forges</code>. <code>live.ref</code> stays a plain function, so an app can pass its own.<br><br>Measured on comark-docs: the branch head is '+commit('a3ebf99f245d4368a52625574ddb970aef7b12b3','a3ebf99')+', a code-only commit, and <code>forgeRef</code> with <code>path: \'playground/content\'</code> returns '+commit('04157092e978d3bfd37dcf338014faac02ae476d','0415709')+'. A code-only push does not look like new content.'],
+    ['Does the build read the snapshot at the commit live.ref returns?', 'That is: from the source, pinned to that commit, as #42 does. Leaning yes.'+S([p42('module.ts','480-535')])],
+    ['Is live only accepted for a source that can be pinned?', '<code>forge()</code> can be pinned to a commit, and so can a custom source with a <code>withRef</code>. <code>fs()</code> and <code>unstorage()</code> have none: comark-content reuses such a source as it is, whatever the commit.'+S([cc('content.ts','1510-1513'), cc('sources/forge.ts','86')])],
+    ['Not decided either', 'Anything else #42 does that is not in the table above: how old instances are released, types, dev behaviour, the <code>resolveContent()</code> and <code>handleContent()</code> helpers.<br><br>Two gaps met while drawing the situations: the key the commit is stored under, and whether a request waits for <code>live.ref()</code> once <code>maxAge</code> has passed (drawn as waiting).'],
+  ].map(([h, p]) => `<div class="wi open">${OPEN_BADGE}<h4 style="margin-top:8px">${h}</h4><p>${p}</p></div>`).join('');
+}
+
 /* ---------- compare tab ---------- */
 function renderCompare(){
   const v4cell = (base) => base;
@@ -1112,7 +1495,7 @@ function renderCompare(){
 }
 
 /* ---------- tabs & branch ---------- */
-const SCREENS = ['overview','read','artifacts','live','compare'];
+const SCREENS = ['overview','read','artifacts','live','proposed','compare'];
 function go(name){
   if (name === 'refs') name = 'live';
   if (!SCREENS.includes(name)) name = 'overview';
@@ -1121,6 +1504,7 @@ function go(name){
   try { history.replaceState(null,'','#'+name); localStorage.setItem('nc-anatomy-tab', name); } catch(e){}
 }
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => go(t.dataset.screen)));
+document.querySelector('main').addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) { go(g.dataset.go); window.scrollTo(0, 0); } });
 /* ---------- tooltips ---------- */
 const tip = document.getElementById('tip');
 document.addEventListener('mouseover', e => {
@@ -1139,7 +1523,7 @@ window.addEventListener('scroll', () => tip.classList.remove('on'), { passive:tr
 /* ---------- start ---------- */
 let startTab = location.hash.slice(1);
 try { if (!startTab) startTab = localStorage.getItem('nc-anatomy-tab') || 'overview'; } catch(e){}
-renderBricks(); renderRead(); renderArtifacts(); renderLive(); renderCompare(); intro();
+renderBricks(); renderRead(); renderArtifacts(); renderLive(); renderProposed(); renderCompare(); intro();
 go(startTab || 'overview');
 })();
 </script>
