@@ -51,7 +51,7 @@ button:focus-visible, summary:focus-visible{outline:2px solid var(--sel); outlin
 .sw{display:inline-block; width:22px; height:12px; border-radius:3px}
 .sw.ink{border:1.5px solid var(--ink); background:var(--panel)}
 .sw.grey{border:1.5px dashed var(--rule)}
-.sw.new{border:1.5px solid var(--ink); background:var(--pr-bg)}
+.sw.pr{border:1.5px dashed #9ea6b0}
 
 .seg{display:inline-flex; border:1.5px solid var(--ink); border-radius:7px; overflow:hidden}
 .seg button{appearance:none; border:0; border-right:1px solid var(--rule); background:var(--panel); color:var(--ink-2); font:500 12.5px/1 var(--f-body); padding:6px 10px; cursor:pointer; white-space:nowrap}
@@ -66,6 +66,7 @@ button:focus-visible, summary:focus-visible{outline:2px solid var(--sel); outlin
 .o-nc{color:var(--green); background:var(--green-bg)}
 .o-v3{color:var(--red); background:var(--red-bg)}
 .o-neutral{color:var(--ink-2); background:var(--inside-bg)}
+.o-pr{color:var(--pr); background:var(--pr-bg)}
 .s-no{color:var(--red); background:var(--red-bg)}
 .s-yes{color:var(--green); background:var(--green-bg)}
 .s-part{color:var(--ckpt); background:var(--ckpt-bg)}
@@ -85,7 +86,11 @@ main{min-width:0}
 .brick.g{border-style:dashed; border-color:var(--rule); background:transparent; color:var(--mute)}
 .brick.g .nm{font-weight:500}
 .brick.g .api{color:var(--mute)}
-.brick.new{background:var(--pr-bg)}
+.brick.pr{border-style:dashed; border-color:#9ea6b0; background:transparent; color:var(--ink-2)}
+.brick.pr .nm{font-weight:500}
+.brick.pr .api{color:#6b737e}
+.brick.pr:hover{border-color:var(--ink-2)}
+.brick.pr.sel{box-shadow:0 0 0 1px #9ea6b0}
 .brick:hover{background:var(--inside-bg)}
 .brick.g:hover{border-color:var(--mute)}
 .brick.sel{box-shadow:0 0 0 1px var(--ink)}
@@ -157,6 +162,7 @@ main{min-width:0}
 .card2:hover{background:var(--inside-bg)}
 .trow.cur .card2{box-shadow:0 0 0 1px var(--ink)}
 .card2.warn{border-color:var(--red)}
+.card2.new{background:var(--pr-bg)}
 .card2 .t{font-weight:600; font-size:13px; line-height:1.25}
 .card2 .s{font:11.5px/1.3 var(--f-mono); color:var(--ink-2); overflow-wrap:anywhere}
 .card2 .n{font:500 10.5px/1 var(--f-mono); color:var(--mute)}
@@ -178,6 +184,7 @@ table.cmp .hl{background:var(--sel-bg)}
 .whatif{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:12px; margin-top:16px}
 .wi{border:1.5px solid var(--ink); border-radius:10px; padding:12px; background:var(--panel)}
 .wi.g{border-style:dashed; border-color:var(--mute)}
+.wi.pr{border-style:dashed; border-color:#9ea6b0}
 .wi h4{margin:0 0 6px; font-family:var(--f-display); font-size:16px; line-height:1.2}
 .wi p{margin:0; color:var(--ink-2)}
 .wi .src{display:block; margin-top:6px; font:11px/1.45 var(--f-mono)}
@@ -197,7 +204,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
 <body>
 <div class="wrap">
   <h1>Nuxt Content v4 Anatomy</h1>
-  <p class="lede">How a read moves through Nuxt Content v4, what the module adds on top of comark-content, and how it differs from v3. Click any brick for details and sources; hover a badge for its meaning.</p>
+  <p class="lede">How a read moves through Nuxt Content v4, what the module adds on top of comark-content, and how it differs from v3. It also shows the coming worker search, from a comark-content PR and a Nuxt Content PR that ship together. Click any brick for details and sources; hover a badge for its meaning.</p>
 
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-screen="overview"><span class="n">1</span>Global overview</button>
@@ -210,6 +217,8 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
     <div class="lg-row"><span class="lbl">Path</span><div class="lg-items">
       <span class="k" data-tip="path_on"><span class="sw ink"></span>v4</span>
       <span class="k" data-tip="o_v3"><span class="sw grey"></span>v3 compat · to be deleted</span>
+      <span class="k" data-tip="o_wk"><span class="sw pr"></span>worker search · coming</span>
+      <span class="badge o-pr" data-tip="o_wk">worker search</span>
     </div></div>
     <div class="lg-row"><span class="lbl">Owner</span><div class="lg-items">
       <span class="badge o-cc" data-tip="o_cc">comark-content</span>
@@ -224,7 +233,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
       <span class="rt" data-tip="rt_browser">Browser</span>
       <span class="rt" data-tip="rt_dev">Dev</span>
     </div></div>
-    <p class="lg-note">Static page: built from your recap and the local checkout on 23 Nov 2026, updated to <code>v4</code> @ d48d094 (#60, #61, #63) on 24 Nov. v3 is <code>@nuxt/content</code> 3.17.0 at <code>3c49cff</code>. PR states may have moved since.</p>
+    <p class="lg-note">Static page: built from your recap and the local checkout on 23 Nov 2026, updated to <code>v4</code> @ d48d094 (#60, #61, #63) on 24 Nov. Worker search added on 25 Nov from comarkdown/comark-content#172 @ cf8a861 and nuxt/content#3931 @ 816307f, both open. v3 is <code>@nuxt/content</code> 3.17.0 at <code>3c49cff</code>. PR states may have moved since.</p>
   </div>
 
   <div class="layout">
@@ -239,6 +248,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
               <button class="brick" data-id="entry"></button>
               <button class="brick" data-id="appentry"></button>
               <button class="brick" data-id="options"></button>
+              <button class="brick" data-id="wentry"></button>
             </div>
             <div class="grid">
               <button class="brick" data-id="v3config"></button>
@@ -265,6 +275,8 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
                       <button class="brick" data-id="index"></button>
                       <button class="brick" data-id="cache"></button>
                       <button class="brick" data-id="withref"></button>
+                      <button class="brick" data-id="ccworker"></button>
+                      <button class="brick" data-id="ccindex"></button>
                     </div>
                   </div>
                 </div>
@@ -285,6 +297,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
                   <button class="brick" data-id="manifest"></button>
                   <button class="brick" data-id="snapshot"></button>
                   <button class="brick" data-id="types"></button>
+                  <button class="brick" data-id="wbuild"></button>
                 </div>
               </div>
             </div>
@@ -297,6 +310,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
                   <button class="brick" data-id="apphy"></button>
                   <button class="brick" data-id="components"></button>
                   <button class="brick" data-id="v3api"></button>
+                  <button class="brick" data-id="wcompose"></button>
                 </div>
               </div>
               <div class="box">
@@ -343,7 +357,7 @@ footer{margin-top:40px; color:var(--mute); font-size:12px}
     </main>
     <aside class="panel" id="panel" aria-live="polite"></aside>
   </div>
-  <footer>Sources: <code>nuxt/content-v4-temp</code> v4 @ d48d094 · comark-content v0.6.2 (private) · <code>nuxt/content</code> @ 3c49cff (v3.17.0). Fonts fall back to system fonts here, since the artifact view can’t load Google Fonts.</footer>
+  <footer>Sources: <code>nuxt/content-v4-temp</code> v4 @ d48d094 · comark-content v0.6.2 (private) · <code>nuxt/content</code> @ 3c49cff (v3.17.0) · worker search: comark-content #172 @ cf8a861 and <code>nuxt/content</code> #3931 @ 816307f. Fonts fall back to system fonts here, since the artifact view can’t load Google Fonts.</footer>
 </div>
 <div class="tip" id="tip"></div>
 
@@ -364,6 +378,17 @@ function L(rev, path, lines){
 }
 const v=(p,l)=>L('v4',p,l), cc=(p,l)=>L('cc',p,l), cd=(p,l)=>L('cd',p,l), v3=(p,l)=>L('v3',p,l);
 const S = arr => `<span class="src">${arr.join(' ')}</span>`;
+// Worker search PRs, linked at their head commits. Move to line links on v4 once they are merged.
+const WPR = {
+  cc:{ n:'cc#172', pr:'https://github.com/comarkdown/comark-content/pull/172', blob:'https://github.com/comarkdown/comark-content/blob/cf8a8615b44a3964c5d14d4d92bcb8594389df42/' },
+  nc:{ n:'#3931', pr:'https://github.com/nuxt/content/pull/3931', blob:'https://github.com/nuxt/content/blob/816307fccd6a4c977ee4642e5d0eda7eacafa44d/' },
+};
+const wpr = (k, path, lines) => {
+  const [a,b] = lines ? String(lines).split('-') : [];
+  const label = path.replace(/^packages\/comark-content\/src\//,'').replace(/^src\/(runtime\/)?/,'');
+  return `<a target="_blank" href="${WPR[k].blob}${path}${a ? `#L${a}${b ? `-L${b}` : ''}` : ''}">${WPR[k].n} ${label}${lines ? `:${lines}` : ''}</a>`;
+};
+const prl = k => `<a target="_blank" href="${WPR[k].pr}">${k==='cc' ? 'comarkdown/comark-content#172' : 'nuxt/content#3931'}</a>`;
 
 /* ---------- tooltips ---------- */
 const TIPS = {
@@ -372,17 +397,18 @@ const TIPS = {
   o_cc:['comark-content','Engine: instances, hub, handler, HTTP client, sources, withSnapshot(), cache, withRef(). Private repo, comarkdown org.'],
   o_nc:['Nuxt Content module','What @nuxt/content v4 adds: entry lookup, createNuxtContent(), routes, app-side content, components, types, prerendered artifacts, dev copy.'],
   o_v3:['v3 compatibility · to be deleted','Kept so v3 apps keep working: queryCollection*, MDC, ContentRenderer, SQLite plugins. Not part of the v4 design; drawn dashed grey.'],
+  o_wk:['Worker search · coming','Added or changed by the comark-content worker PR and the Nuxt Content worker PR, which ship together. Drawn dashed, darker grey. comarkdown/comark-content#172 and nuxt/content#3931, both open; names may still change in review.'],
   rt_config:['Config','Evaluated when Nuxt sets up the module.'],
   rt_build:['Build','Runs during nuxt build (prerender) and writes files.'],
   rt_server:['Nitro','Runs in the server at request time.'],
-  rt_browser:['Browser','Runs in the user’s tab (hybrid mode only, past SSR).'],
+  rt_browser:['Browser','Runs in the user’s tab (hybrid mode only, past SSR), or in its Web Worker for worker search.'],
   rt_dev:['Dev','Only under nuxt dev, in the module’s own process.'],
 };
 const RTL = { config:'Config', build:'Build', server:'Nitro', browser:'Browser', dev:'Dev' };
 const OWN = { cc:['o-cc','comark-content'], nc:['o-nc','Nuxt Content'], v3:['o-v3','v3 compat'] };
 
 /* ---------- bricks ---------- */
-// on: branches where the brick is on the code path. new: branches where it is added by a PR.
+// on: where the brick is on the code path. ['worker'] marks a brick the worker search PRs add; br.worker is what they change in a v4 brick.
 const ALL=['v4'];
 const B = {
   options:{ name:'Module options', api:"mode · watch · build · renderer", own:'nc', rt:'config', on:ALL,
@@ -399,7 +425,8 @@ const B = {
     note:"<code>createNuxtContent()</code> here is synchronous, so it can’t fetch the manifest to learn the instances: the module passes their names as the build-time <code>import.meta.content.sources</code>. Only the project’s <code>srcDir</code> is checked, not layers.",
     compat:"Only used with <code>mode: 'hybrid'</code> and <code>compatibilityVersion: 4</code>. Otherwise the module warns and ignores it: server-only reads through the server, and the v3 layer builds its own browser instance with sqlite-wasm.",
     src:[v('module.ts','106-121'), v('runtime/client-content/app.ts','11-33')],
-    v3:"v3 has no browser entry: the browser always runs its own sqlite-wasm database." },
+    v3:"v3 has no browser entry: the browser always runs its own sqlite-wasm database.",
+    br:{ worker:"Looked up across layers too, like <code>app/content.worker.ts</code>, with the app’s file winning (<code>resolveLayerAppFile</code>). "+wpr('nc','src/utils/config.ts','78-80') } },
   v3config:{ name:'Layer content.config.ts', api:'every layer’s config → one hub', own:'v3', rt:'config', on:ALL,
     what:"Compat entry, used only with <code>compatibilityVersion: 3</code> and when no layer has a <code>server/content.ts</code>: the <code>content.config.ts</code> of every layer is evaluated at setup and each collection becomes a named source on one hub, so <code>queryCollection('&lt;collection&gt;')</code> keeps working. Reads YAML and JSON too. With <code>compatibilityVersion: 4</code> these files are ignored with a warning.",
     src:[v('utils/config.ts','81-90'), v('runtime/server/internal/content-config.ts','12-17')],
@@ -435,7 +462,8 @@ const B = {
   handler:{ name:'handler', api:'get · list · navigation · manifest · snapshot', own:'cc', rt:'server', on:ALL,
     what:"<code>get/&lt;path&gt;</code>, <code>list</code>, <code>navigation</code>, <code>manifest</code>, <code>snapshot/&lt;name&gt;</code>, plus plugin routes (<code>query</code>, <code>search</code> with v3 compat).",
     src:[cc('content/handler.ts','44-109'), cc('plugins/sql-query.ts','405')],
-    v3:"v3 has one route per collection that accepts SQL, checked by <code>assertSafeQuery</code>. "+v3('src/runtime/api/query.post.ts','7-28') },
+    v3:"v3 has one route per collection that accepts SQL, checked by <code>assertSafeQuery</code>. "+v3('src/runtime/api/query.post.ts','7-28'),
+    br:{ worker:"The full-text search plugin adds a <code>search-index/&lt;names&gt;</code> route (all instances when the names are omitted) that serves <code>buildSearchIndex()</code>. <code>handler.ts</code> itself doesn’t change. "+wpr('cc','packages/comark-content/src/plugins/sqlite-full-text-search.ts','467-478') } },
   index:{ name:'Live index', api:'freshest index wins', own:'cc', rt:'server', on:ALL,
     what:"At runtime the newest index wins: the build manifest, or a persisted one made newer by <code>update()</code>, <code>remove()</code> or <code>refresh()</code>. A snapshot body is used only if its key is indexed and both <code>meta.hash</code> match.",
     src:[cc('content.ts','304-357'), cc('content.ts','883-903')],
@@ -462,7 +490,8 @@ const B = {
   snapshot:{ name:'Snapshot', api:'/__nuxt_content/snapshot/<name>.json', own:'cc', rt:'build', on:ALL,
     what:"The index plus every parsed body. A gzip+base64 <code>CacheArtifact</code>. Read by the server once per instance on the first uncached body; by the browser in hybrid.",
     src:[cc('types/source.ts','7-14'), v('module.ts','506-512'), cc('content.ts','858-881')],
-    v3:"v3 ships a gzipped, base64 JSON array of SQL lines per collection, bundled in the server (node) or as public assets (Cloudflare). "+v3('src/utils/templates.ts','14-21'), zoom:'artifacts' },
+    v3:"v3 ships a gzipped, base64 JSON array of SQL lines per collection, bundled in the server (node) or as public assets (Cloudflare). "+v3('src/utils/templates.ts','14-21'), zoom:'artifacts',
+    br:{ worker:"In server-only mode, <code>snapshot/&lt;name&gt;.json</code> becomes public output when <code>app/content.worker.ts</code> exists, so the worker can read it on a static host. Only the selected sources’ snapshots are downloaded. The manifests stay private, and without the file nothing changes. "+wpr('nc','src/module.ts','551') } },
   types:{ name:'Generated types', api:'content/types.d.ts', own:'nc', rt:'build', on:ALL,
     what:"Generated by reading every instance’s manifest.",
     src:[v('module.ts','228-258'), v('module.ts','284-313')],
@@ -470,7 +499,8 @@ const B = {
   appso:{ name:'App content · server-only', api:'HTTP client on /__nuxt_content', own:'cc', rt:'browser', on:ALL,
     what:"During SSR both modes use this client. In server-only mode the browser keeps it too.",
     src:[v('runtime/client-content/server-only.ts','6-10')],
-    v3:"v3 posts SQL to the query route when WASM isn’t available. "+v3('src/runtime/client.ts','21-47') },
+    v3:"v3 posts SQL to the query route when WASM isn’t available. "+v3('src/runtime/client.ts','21-47'),
+    br:{ worker:"Unchanged: the auto-imported <code>content</code> stays this HTTP client. With <code>app/content.worker.ts</code>, <code>useNuxtContentWorker()</code> reads and searches next to it, in a worker, without the server." } },
   apphy:{ name:'App content · hybrid', api:'comark-content/runtime in the browser', own:'cc', rt:'browser', on:ALL,
     what:"After SSR, builds a runtime instance from the fixed <code>manifest.json</code> and <code>snapshot/&lt;name&gt;.json</code>. An <code>app/content.ts</code> replaces this client, to add browser plugins.", compat:"Adds sqlite-wasm in the browser so <code>queryCollection()</code> and search run over the snapshot. The plugins come from the <code>#content-wasm-plugins</code> alias, a stub without v3, so sqlite stays out of v4 bundles (#63 replaced a dynamic import that deadlocked the client’s top-level <code>await</code> on Nuxt 4.7).",
     src:[v('runtime/client-content/hybrid.ts','23-55'), v('module.ts','152-153')],
@@ -489,7 +519,35 @@ const B = {
   watcher:{ name:'Watcher + HMR', api:'watch: true', own:'nc', rt:'dev', on:ALL,
     what:"A watcher and HMR events on top of the dev copy.",
     src:[v('module.ts','445-464'), v('module.ts','376-392')],
-    v3:"v3 watches local sources with chokidar, updates the local SQLite and pushes SQL over the Vite HMR socket to the browser’s WASM DB. "+v3('src/utils/dev.ts','150-240') },
+    v3:"v3 watches local sources with chokidar, updates the local SQLite and pushes SQL over the Vite HMR socket to the browser’s WASM DB. "+v3('src/utils/dev.ts','150-240'),
+    br:{ worker:"HMR events also go to the worker: <code>useNuxtContentWorker()</code> forwards them, and comark-content’s host applies <code>update</code> and <code>remove</code> to the instances it has already loaded. "+wpr('nc','src/runtime/client-content/worker-client.ts','54-73') } },
+
+  // Worker search: comark-content PR
+  ccworker:{ name:'comark-content/worker', api:'serveContentWorker(createHub) · connectContentWorker(worker)', own:'cc', rt:'browser', on:['worker'],
+    what:"A new entry with both sides of a Web Worker. In the worker, <code>serveContentWorker(createHub, port?)</code> answers each <code>fetch</code> message through the hub’s <code>handler()</code> with <code>{ status, text }</code>, and applies HMR <code>update</code> and <code>remove</code> to instances already loaded. It also accepts a single instance. <code>createHub</code> runs on each <code>init</code> message with that message’s value, or on the first read with <code>undefined</code>; a later <code>init</code> switches to a new hub and releases the instances it drops. On the main thread, <code>connectContentWorker(worker)</code> returns <code>{ fetch, init, update, remove, terminate }</code>: <code>fetch</code> is a <code>ContentFetch</code> for <code>createContentClient({ fetch })</code> and throws <code>ContentFetchError</code> on a non-2xx answer. A worker <code>error</code> rejects every pending and later call.",
+    note:"It has no framework imports and never calls <code>new Worker()</code>: the app owns the worker entry, because that file bundles the app’s plugins. comarkdown/comark-docs#102 moves comark-docs’ own search worker to this API (153 → 32 lines) to try it in a real app with per-commit previews: <code>init({ sha, debug })</code>, then <code>buildSearchIndex()</code>, and <code>terminate()</code> after a failed load. It is not meant to be merged. <a target=\"_blank\" href=\"https://github.com/comarkdown/comark-docs/pull/102\">comark-docs#102</a>",
+    open:"Names can still change in review. Nuxt Content doesn’t expose <code>init()</code> yet: switching content in one worker, as comark-docs does per commit, is left for a follow-up.",
+    src:[wpr('cc','packages/comark-content/src/worker.ts','85-143'), wpr('cc','packages/comark-content/src/worker.ts','161-215'), wpr('cc','docs/content/3.integrations/4.vite.md','290-336'), wpr('cc','docs/content/8.reference/9.worker.md')] },
+  ccindex:{ name:'buildSearchIndex()', api:'instance · hub · search-index route · client', own:'cc', rt:'browser', on:['worker'],
+    what:"A public method of the full-text search plugin that builds the index before the first query. On an instance it runs <code>init({ partial: false })</code> and builds the index once. <code>hub.buildSearchIndex({ instances })</code> and the search client’s <code>buildSearchIndex({ instances })</code> go through a new <code>search-index/&lt;names&gt;</code> route, which returns <code>null</code>. An unknown name is a 404.",
+    note:"Nuxt Content’s <code>warmup()</code> calls it, so it needs no <code>hub.search('')</code> trick to build the index.",
+    open:"The name can still change in review. <code>content.buildSearchIndex()</code> takes no options, since a rebuild after a change wouldn’t pass them.",
+    src:[wpr('cc','packages/comark-content/src/plugins/sqlite-full-text-search.ts','389-412'), wpr('cc','packages/comark-content/src/plugins/sqlite-full-text-search.ts','462-478'), wpr('cc','packages/comark-content/src/plugins/sqlite-full-text-search.client.ts','50-53')] },
+
+  // Worker search: Nuxt Content PR
+  wentry:{ name:'app/content.worker.ts', api:'export default createNuxtContentWorker({ plugins })', own:'nc', rt:'browser', on:['worker'],
+    what:"The worker entry, in the app or a layer; the app’s file wins. <code>createNuxtContentWorker()</code> from <code>@nuxt/content/worker</code> takes the plugins that run in the worker, such as <code>sqliteFullTextSearch({ database: sqliteWasm() })</code>, both re-exported there. The generated entry calls the internal <code>startNuxtContentWorker(definition, names, baseURL)</code>, which gives comark-content’s host a hub factory: one instance per source on <code>snapshot(baseURL + '__nuxt_content/snapshot/&lt;name&gt;.json')</code>, each loaded on its first read, in a hub on <code>basePath: '/__nuxt_content'</code>. Every instance gets the same plugins, so with one <code>sqliteWasm()</code> database a search across instances is one ranked query. No Nuxt or Vue code runs in the worker.",
+    note:"For server-only mode: hybrid keeps its instances on the main thread, configured by <code>app/content.ts</code>. When the file exists, the module publishes the snapshots and builds the worker. Adding or removing the file during dev needs a restart, as with <code>server/content.ts</code>.",
+    src:[wpr('nc','src/runtime/client-content/worker.ts','18-35'), wpr('nc','src/utils/config.ts','78-80')] },
+  wcompose:{ name:'useNuxtContentWorker()', api:'status · warmup · search · get · list', own:'nc', rt:'browser', on:['worker'],
+    what:"Auto-imported only when <code>app/content.worker.ts</code> exists. It starts the worker on the first call, with <code>connectContentWorker(worker)</code>; the worker builds its hub on the first read, since <code>init()</code> isn’t called. If the worker fails, the connection is dropped and the next call starts a new one. <code>instances</code> (default: every source) picks the instances it reads, so only their snapshots are downloaded; changing it loads the new ones, and loaded ones stay. <code>warmup()</code> calls <code>buildSearchIndex({ instances: [name] })</code> per instance and drives <code>status</code> (<code>idle</code>, <code>loading</code>, <code>ready</code>, <code>error</code>). Reads go through <code>createContentClient</code> with the worker’s <code>fetch</code>. <code>search()</code> and <code>list()</code> query the selected instances through the hub; <code>get()</code> tries them one by one with a client per instance, so it never loads the others. In dev, HMR events go to <code>worker.update()</code> and <code>worker.remove()</code>.",
+    note:"<code>get</code> has the signature of <code>ContentClient['get']</code>: a public path only. The auto-imported <code>content</code> stays the HTTP client; this composable is a second reader that doesn’t need the server, so search works on a static host. There is no <code>navigation()</code>: prerendered pages already carry it.",
+    src:[wpr('nc','src/runtime/client-content/worker-client.ts','93-147'), wpr('nc','test/worker-search.test.ts')] },
+  wbuild:{ name:'Worker build', api:'.nuxt/content/content-worker.mjs · @nuxt/content/worker-entry', own:'nc', rt:'build', on:['worker'],
+    what:"<code>setupWorker()</code> in <code>module.ts</code> writes the worker entry to disk, because Vite bundles workers without Nuxt’s in-memory templates. The entry imports <code>app/content.worker.ts</code> and starts comark-content’s host with the instance names and the build’s <code>app.baseURL</code>. The alias <code>@nuxt/content/worker-entry</code> points at it, so <code>new Worker(new URL('@nuxt/content/worker-entry', import.meta.url))</code> resolves; a <code>#</code> alias would be read as a URL hash. A <code>build:manifest</code> hook clears <code>preload</code> and <code>prefetch</code> on <code>content-worker-*.js</code>, so the page doesn’t load it. <code>optimizeDeps.exclude</code> keeps sqlite-wasm out of pre-bundling, so it finds <code>sqlite3.wasm</code> in dev. A local <code>sqliteWorkerFilesPlugin()</code> stops Vite from emitting sqlite-wasm’s Worker1 API and OPFS helper files (about 245 KB) in the content worker’s bundle only; the app’s other workers keep them. <code>package.json</code> adds the <code>./worker</code> export and pins comark-content to the pkg.pr.new build of cc#172 (<code>cf8a861</code>) until it’s released.",
+    note:"Measured on the first prototype’s fixture, not yet re-measured on the current code: the main thread gains about 1 KB. The worker chunk is 270 KB (82 KB gzip) and <code>sqlite3.wasm</code> 879 KB (408 KB gzip); both load on warmup only.",
+    open:"The sqlite plugin moves to comark-content in a separate PR, not one of the two shown here; <code>module.ts</code> keeps its own copy until then. A base URL set at runtime with <code>NUXT_APP_BASE_URL</code> isn’t supported yet: the worker uses the build’s.",
+    src:[wpr('nc','src/module.ts','232-289'), wpr('nc','package.json','27'), wpr('nc','pnpm-workspace.yaml','14-15')] },
 };
 /* ---------- usage ---------- */
 // Each entry: { intro?, blocks: [{ t, code }], after?, src? }. Shown in the inspector under "Usage".
@@ -698,6 +756,63 @@ const { data: page } = await useAsyncData(\`page-\${route.path}\`, () =>
 `- const doc = await queryCollection('docs').path(path).first()
 + const doc = await content.get(path)` }],
     src:[MIG(182,187)] },
+  wentry:{
+    intro:"Add the file to turn on worker search. The plugins listed here run in the worker only.",
+    blocks:[{ t:'app/content.worker.ts', code:
+`import { createNuxtContentWorker, sqliteFullTextSearch, sqliteWasm } from '@nuxt/content/worker'
+
+export default createNuxtContentWorker({
+  plugins: [sqliteFullTextSearch({ database: sqliteWasm() })],
+})` }],
+    src:[wpr('nc','src/runtime/client-content/worker.ts','18-35')] },
+  wcompose:{
+    blocks:[{ t:'A search box on one locale’s docs', code:
+`<script setup lang="ts">
+const { status, warmup, search } = useNuxtContentWorker({
+  instances: () => [\`docs_\${getLocaleKey(locale.value)}\`],
+})
+onNuxtReady(warmup)   // loads the worker, the wasm and that snapshot
+<\/script>
+
+<template>
+  <UContentSearch :search="search" :search-status="status" />
+</template>` }],
+    after:"Without <code>instances</code>, every source is selected and every snapshot is downloaded on warmup.",
+    src:[wpr('nc','src/runtime/client-content/worker-client.ts','93-147')] },
+  ccworker:{
+    intro:"comark-content on its own, without Nuxt, from the PR’s Vite docs: the app writes the worker entry and wires the client.",
+    blocks:[
+      { t:'src/content.worker.ts', code:
+`import { comarkContent } from 'comark-content/runtime'
+import snapshot from 'comark-content/sources/snapshot'
+import sqliteWasm from 'comark-content/database/sqlite-wasm'
+import sqliteFullTextSearch from 'comark-content/plugins/sqlite-full-text-search'
+import { serveContentWorker } from 'comark-content/worker'
+
+serveContentWorker(() =>
+  comarkContent({
+    source: snapshot(\`\${import.meta.env.BASE_URL}api/content/snapshot/default.json\`),
+    plugins: [sqliteFullTextSearch({ database: sqliteWasm() })],
+  })
+)` },
+      { t:'src/content.ts (main thread)', code:
+`import { createContentClient } from 'comark-content/client'
+import searchClient from 'comark-content/plugins/sqlite-full-text-search/client'
+import { connectContentWorker } from 'comark-content/worker'
+
+const worker = connectContentWorker(new Worker(new URL('./content.worker.ts', import.meta.url), { type: 'module' }))
+
+export const content = createContentClient({ fetch: worker.fetch, plugins: [searchClient()] })
+
+if (import.meta.hot) {
+  import.meta.hot.on('comark:update', worker.update)
+  import.meta.hot.on('comark:remove', worker.remove)
+}
+
+// Build the index while the page is idle, so the first search answers at once.
+await content.buildSearchIndex()` },
+    ],
+    src:[wpr('cc','docs/content/3.integrations/4.vite.md','290-336')] },
 };
 Object.entries(U).forEach(([k, u]) => { if (B[k]) B[k].use = u; });
 
@@ -706,13 +821,15 @@ const ZOOMNAME = { artifacts:'Manifest & snapshot', read:'A read, step by step' 
 /* ---------- state ---------- */
 const branch = 'v4';
 let mode = 'so';
+const isWk = b => b.on.length === 1 && b.on[0] === 'worker';
+const WKB = '<span class="badge o-pr" data-tip="o_wk">worker search</span>';
 function renderBricks(){
   document.querySelectorAll('.brick[data-id]').forEach(el => {
     const b = B[el.dataset.id]; if (!b) return;
-    el.classList.toggle('g', b.own==='v3' || !b.on.length);
+    el.classList.toggle('g', b.own==='v3' || !b.on.length); el.classList.toggle('pr', isWk(b));
     const [oc, ol] = OWN[b.own];
     el.innerHTML = `<span class="nm">${b.name}</span><span class="api">${esc(b.api)}</span>${b.why ? `<span class="why">${b.why}</span>` : ''}
-      <span class="meta"><span class="badge ${oc}" data-tip="o_${b.own}">${ol}</span><span class="rt" data-tip="rt_${b.rt}">${RTL[b.rt]}</span></span>`;
+      <span class="meta"><span class="badge ${oc}" data-tip="o_${b.own}">${ol}</span><span class="rt" data-tip="rt_${b.rt}">${RTL[b.rt]}</span>${isWk(b) ? WKB : ''}</span>`;
   });
 }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -724,8 +841,9 @@ function intro(){
   current = null;
   document.querySelectorAll('.sel').forEach(e => e.classList.remove('sel'));
   panel.innerHTML = `<button class="close">Close</button><div class="eyebrow"><span class="badge o-neutral">Inspector</span></div>
-    <h2>Pick a brick</h2><p>Each brick shows who owns it and where it runs. Solid bricks are v4. Dashed grey ones with a red badge are v3 compat (to be deleted).</p>
-    <h4>Owners</h4><ul><li><b>comark-content</b>: the engine.</li><li><b>Nuxt Content</b>: what the module wires on top.</li><li><b>v3 compat</b>: kept for v3 apps, to be deleted (dashed grey, red badge).</li></ul>`;
+    <h2>Pick a brick</h2><p>Each brick shows who owns it and where it runs. Solid bricks are v4. Dashed grey ones with a red badge are v3 compat (to be deleted). Dashed darker grey ones with a blue badge come with the worker search PRs.</p>
+    <h4>Owners</h4><ul><li><b>comark-content</b>: the engine.</li><li><b>Nuxt Content</b>: what the module wires on top.</li><li><b>v3 compat</b>: kept for v3 apps, to be deleted (dashed grey, red badge).</li></ul>
+    <h4>Worker search · coming</h4><p>Two PRs that ship together: a comark-content PR (${prl('cc')}) adds a generic Web Worker host with its main-thread <code>fetch</code>, and <code>buildSearchIndex()</code> on the search plugin. The Nuxt Content PR built on it (${prl('nc')}) adds <code>app/content.worker.ts</code> and <code>useNuxtContentWorker()</code>, so search runs in a worker in server-only mode, on a static host too. A v4 brick the PRs change shows what changes in a blue “Worker search” note. Sources link to each PR’s head commit.</p>`;
 }
 function showBrick(id){
   const b = B[id]; if (!b) return;
@@ -733,8 +851,10 @@ function showBrick(id){
   document.querySelectorAll('.sel').forEach(e => e.classList.remove('sel'));
   document.querySelectorAll(`.brick[data-id="${id}"]`).forEach(e => e.classList.add('sel'));
   const [oc, ol] = OWN[b.own];
-  let h = `<button class="close">Close</button><div class="eyebrow"><span class="badge ${oc}" data-tip="o_${b.own}">${ol}</span><span class="rt" data-tip="rt_${b.rt}">${RTL[b.rt]}</span></div>
+  let h = `<button class="close">Close</button><div class="eyebrow"><span class="badge ${oc}" data-tip="o_${b.own}">${ol}</span><span class="rt" data-tip="rt_${b.rt}">${RTL[b.rt]}</span>${isWk(b) ? WKB : ''}</div>
     <h2>${b.name}</h2><p class="api">${esc(b.api)}</p><p>${b.what}</p>`;
+  if (isWk(b)) h += `<div class="call pr"><div class="t">Worker search · adds</div><p>New in ${prl(b.own)}.${b.own==='nc' ? ` Built on ${prl('cc')}, which ships with it.` : ''}</p></div>`;
+  if (b.br && b.br.worker) h += `<div class="call pr"><div class="t">Worker search · changes</div><p>${b.br.worker}</p></div>`;
   if (b.note) h += `<div class="call pr"><div class="t">Note</div><p>${b.note}</p></div>`;
   if (b.compat) h += `<div class="call v3"><div class="t">v3 compat · to be deleted</div><p>${b.compat}</p></div>`;
   if (b.open) h += `<div class="call pr"><div class="t">Open</div><p>${b.open}</p></div>`;
@@ -768,7 +888,7 @@ function showMoment(r, lanes){
   current = null;
   document.querySelectorAll('.sel').forEach(e => e.classList.remove('sel'));
   const m = momentMeta(r); const [oc, ol] = OWN[m.own];
-  let h = `<button class="close">Close</button><div class="eyebrow"><span class="badge ${oc}" data-tip="o_${m.own}">${ol}</span><span class="rt" data-tip="rt_${m.rt}">${RTL[m.rt]}</span><span class="badge o-neutral">${lanes[r.lane]}</span></div><h2>${r.t}</h2>${r.s?`<p class="api">${esc(r.s)}</p>`:''}<p>${r.x}</p>`;
+  let h = `<button class="close">Close</button><div class="eyebrow"><span class="badge ${oc}" data-tip="o_${m.own}">${ol}</span><span class="rt" data-tip="rt_${m.rt}">${RTL[m.rt]}</span>${r.isNew ? WKB : ''}<span class="badge o-neutral">${lanes[r.lane]}</span></div><h2>${r.t}</h2>${r.s?`<p class="api">${esc(r.s)}</p>`:''}<p>${r.x}</p>`;
   if (r.v3) h += `<div class="call v3"><div class="t">In v3</div><p>${r.v3}</p></div>`;
   if (r.src) h += `<h4>Source</h4><ul class="links">${r.src.map(s=>`<li>${s}</li>`).join('')}</ul>`;
   if (r.brick) h += `<p style="margin-top:12px"><button class="linkbtn" data-open="${r.brick}">Open the ${B[r.brick].name} brick</button></p>`;
@@ -788,7 +908,7 @@ function makeTimeline(mount, cfg){
   let step = cfg.rows.length; // show all by default
   mount.innerHTML = `<div class="controls"><button class="btn primary" data-a="next">Step through</button><button class="btn" data-a="back">Back</button><button class="btn" data-a="all">Show all</button><span class="counter"></span></div>
     <div class="scroller"><div class="tl"><div class="tl-head" style="grid-template-columns:${cols}">${cfg.lanes.map(l=>`<div>${l}</div>`).join('')}</div>
-    ${cfg.rows.map((r,i)=>`<div class="trow" data-i="${i}" style="grid-template-columns:${cols}">${cfg.lanes.map((_,li)=> li===r.lane ? `<div><button class="card2${r.warn?' warn':''}" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${r.t}</span>${r.s?`<span class="s">${esc(r.s)}</span>`:''}</button></div>` : '<div></div>').join('')}</div>`).join('')}
+    ${cfg.rows.map((r,i)=>`<div class="trow" data-i="${i}" style="grid-template-columns:${cols}">${cfg.lanes.map((_,li)=> li===r.lane ? `<div><button class="card2${r.warn?' warn':''}${r.isNew?' new':''}" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${r.t}</span>${r.s?`<span class="s">${esc(r.s)}</span>`:''}</button></div>` : '<div></div>').join('')}</div>`).join('')}
     </div></div>`;
   const rows = [...mount.querySelectorAll('.trow')];
   const counter = mount.querySelector('.counter');
@@ -831,7 +951,11 @@ const READ = {
     { lane:0, t:'Hydrate, render', s:'<ContentDocument>', x:'The page renders the body through the generated component map.', brick:'components' },
     { lane:0, t:'Client navigation', s:'/docs/next', x:'In server-only mode the browser keeps the HTTP client.' },
     { lane:1, t:'Same HTTP client', s:'GET /__nuxt_content/get/docs/next', x:'Every client read goes back to the server.', brick:'appso', v3:'v3 would load the collection dump into sqlite-wasm and query locally.' },
-    { lane:3, t:'Served from cache', s:'warm instance', x:'Index and snapshot are already loaded.' }],
+    { lane:3, t:'Served from cache', s:'warm instance', x:'Index and snapshot are already loaded.' },
+    { lane:0, t:'Or: search in a worker', s:'useNuxtContentWorker().warmup()', x:'With an <code>app/content.worker.ts</code>, the page warms a search box, often on <code>onNuxtReady</code>. The first call starts the worker: its chunk and <code>sqlite3.wasm</code> load now, not with the page, because they aren’t preloaded.', brick:'wcompose', isNew:true, own:'nc', rt:'browser' },
+    { lane:1, t:'Reads go to the worker', s:'connectContentWorker(worker).fetch', x:'<code>createContentClient</code> reads through the worker’s <code>fetch</code>, and the worker answers through <code>hub.handler()</code>. No request reaches Nitro, so this works on a static host.', src:[wpr('cc','packages/comark-content/src/worker.ts','161-215')], brick:'ccworker', isNew:true, own:'cc', rt:'browser' },
+    { lane:4, t:'Only the selected snapshots', s:'snapshot/docs_en.json', x:'The worker’s hub factory builds each selected instance from its public snapshot, published in server-only mode because the worker file exists. The other sources’ snapshots are never downloaded.', src:[wpr('nc','src/runtime/client-content/worker.ts','18-35')], brick:'snapshot', isNew:true, own:'nc', rt:'browser' },
+    { lane:3, t:'buildSearchIndex(), then search', s:'sqlite-wasm in the worker', x:'<code>warmup()</code> calls <code>buildSearchIndex()</code> for each selected instance, so the index is built before the first query. Searches then run in the worker, off the main thread.', src:[wpr('cc','packages/comark-content/src/plugins/sqlite-full-text-search.ts','389-412')], brick:'ccindex', isNew:true, own:'cc', rt:'browser' }],
   hy: [...SSR_COMMON, ...SERVE_V4,
     { lane:0, t:'Hydrate, render', s:'<ContentDocument>', x:'The page renders the body through the generated component map.', brick:'components' },
     { lane:1, t:'Build browser instance', s:'GET manifest.json', x:'When the module exporting <code>content</code> loads, the browser fetches the fixed manifest and builds a <code>comark-content/runtime</code> instance.', src:[v('runtime/client-content/hybrid.ts','23-32')], brick:'apphy',
@@ -843,14 +967,15 @@ const READ = {
 const WHATIF = {
   so:[['A file changes on the forge','Not seen. The build snapshot stays the index until <code>refresh()</code> or a configured <code>cache.ttl</code> expires.'],
       ['The server restarts','The in-memory cache is empty again: <code>init()</code> rereads the manifest and the first body reloads the snapshot.'],
-      ['SQLite query routes','<code>query</code> and <code>search</code> routes on one <code>sqlite-node</code> database, for <code>queryCollection()</code>.','v3']],
+      ['SQLite query routes','<code>query</code> and <code>search</code> routes on one <code>sqlite-node</code> database, for <code>queryCollection()</code>.','v3'],
+      ['The site is on a static host','Today the browser can’t search: there is no <code>/__nuxt_content</code> route and the snapshots aren’t public. With <code>app/content.worker.ts</code>, search runs in a worker over the published snapshots.','wk']],
   hy:[['A file changes on the forge','The browser can never see it: its URLs are fixed to the build.'],
       ['sqlite-wasm in the browser','Runs <code>queryCollection()</code> and full-text search over the snapshot.','v3']],
 };
 function renderRead(){
   document.querySelectorAll('#modeseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode===mode)));
   makeTimeline(document.getElementById('tl-read'), { lanes:READ_LANES, rows:READ[mode] });
-  document.getElementById('read-whatif').innerHTML = WHATIF[mode].map(([h,p,k])=>k==='v3' ? `<div class="wi g"><span class="badge o-v3" data-tip="o_v3">v3 compat</span><h4 style="margin-top:8px;color:var(--mute)">${h}</h4><p>${p}</p></div>` : `<div class="wi"><h4>${h}</h4><p>${p}</p></div>`).join('');
+  document.getElementById('read-whatif').innerHTML = WHATIF[mode].map(([h,p,k])=>k==='v3' ? `<div class="wi g"><span class="badge o-v3" data-tip="o_v3">v3 compat</span><h4 style="margin-top:8px;color:var(--mute)">${h}</h4><p>${p}</p></div>` : k==='wk' ? `<div class="wi pr">${WKB}<h4 style="margin-top:8px">${h}</h4><p>${p}</p></div>` : `<div class="wi"><h4>${h}</h4><p>${p}</p></div>`).join('');
 }
 document.getElementById('modeseg').addEventListener('click', e => { const b=e.target.closest('[data-mode]'); if (b) { mode=b.dataset.mode; renderRead(); } });
 
@@ -860,9 +985,9 @@ function renderArtifacts(){
     ['Contains', `<code>sources</code>, <code>items</code> by path (<code>path</code>, listing <code>data</code>, <code>meta.hash</code>), <code>schemas</code>, <code>time</code>, <code>ref</code> when pinned. No bodies.${S([cc('types/manifest.ts','4-23')])}`, `<code>items</code>: every file with <code>data</code>, <code>meta</code> and parsed <code>nodes</code>; <code>time</code>; <code>ref</code> when pinned.${S([cc('types/source.ts','7-14')])}`, 'Per collection: an array of SQL lines (structure, meta, one INSERT per row with a row hash), wrapped in a <code>_content_info</code> checksum row.'+S([v3('src/module.ts','425-442')])],
     ['Wire form', `<code>CacheArtifact</code>: gzip + base64 JSON with checksum and size.${S([cc('content/cache.ts','107-127')])}`, 'Same.', 'JSON array, gzipped and base64-encoded.'+S([v3('src/utils/templates.ts','14-21')])],
     ['Built', `<code>nuxt build</code> prerenders <code>/manifest.json</code> and <code>/manifest/&lt;name&gt;.json</code>.${S([v('module.ts','468-472')])}`, `Prerenders <code>/snapshot/&lt;name&gt;.json</code>, which parses every file.${S([cc('content.ts','469-471')])}`, 'At <code>modules:done</code>: parse in chunks of 25, cached in <code>.data/content/contents.sqlite</code>.'+S([v3('src/module.ts','352-417')])],
-    ['Stored', `Server assets; public too in hybrid.${S([v('module.ts','478-505')])}`, `Server assets; public too in hybrid.${S([v('module.ts','506-512')])}`, 'Bundled into the server (node preset) or public <code>dump.&lt;c&gt;.sql</code> (Cloudflare); <code>sql_dump.txt</code> prerendered.'+S([v3('src/presets/node.ts','11-27'), v3('src/module.ts','185-190')])],
+    ['Stored', `Server assets; public too in hybrid.${S([v('module.ts','478-505')])}`, `Server assets; public too in hybrid. ${WKB} Public in server-only too when <code>app/content.worker.ts</code> exists.${S([v('module.ts','506-512')])}`, 'Bundled into the server (node preset) or public <code>dump.&lt;c&gt;.sql</code> (Cloudflare); <code>sql_dump.txt</code> prerendered.'+S([v3('src/presets/node.ts','11-27'), v3('src/module.ts','185-190')])],
     ['Read by server', `Every cold start, by <code>init()</code>.${S([cc('content.ts','815-824')])}`, `Once per instance, first uncached body.${S([cc('content.ts','858-881')])}`, 'First query per collection per process; diff by row hash or full reload.'+S([v3('src/runtime/internal/database.server.ts','68-185')])],
-    ['Read by browser', `Hybrid only, when <code>content</code> loads.${S([v('runtime/client-content/hybrid.ts','28-32')])}`, `Hybrid only, via the <code>snapshot()</code> source.${S([v('runtime/client-content/hybrid.ts','36-41')])}`, 'Always when WASM exists; cached in localStorage by checksum.'+S([v3('src/runtime/internal/database.client.ts','85-149')])],
+    ['Read by browser', `Hybrid only, when <code>content</code> loads.${S([v('runtime/client-content/hybrid.ts','28-32')])}`, `Hybrid only, via the <code>snapshot()</code> source. ${WKB} In server-only, the worker reads the selected sources’ snapshots.${S([v('runtime/client-content/hybrid.ts','36-41')])}`, 'Always when WASM exists; cached in localStorage by checksum.'+S([v3('src/runtime/internal/database.client.ts','85-149')])],
   ];
   document.getElementById('art-table').innerHTML = `<table class="cmp"><thead><tr><th></th><th>Manifest</th><th>Snapshot</th><th>v3 equivalent: SQL dump</th></tr></thead><tbody>${rows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`;
   const life = [
@@ -908,7 +1033,7 @@ function renderCompare(){
       'Handler API (<code>get</code>/<code>list</code>/<code>navigation</code>). <span class="badge o-v3">v3 compat</span> keeps <code>queryCollection*</code>.'+S([v('module.ts','170-194')]),
       'Handler API; SQL and FTS are opt-in plugins.'+S([cc('plugins/sql-query.ts','405')])],
     ['Browser', 'Always sqlite-wasm when available; dump cached in localStorage; no option to turn it off.'+S([v3('src/runtime/client.ts','114-129'), v3('src/runtime/internal/database.client.ts','61-149')]),
-      'server-only: HTTP client. hybrid: <code>comark-content/runtime</code> from fixed build URLs, configurable in <code>app/content.ts</code>. <span class="badge o-v3">v3 compat</span> adds sqlite-wasm.'+S([v('runtime/client-content/hybrid.ts','23-55')]),
+      'server-only: HTTP client. hybrid: <code>comark-content/runtime</code> from fixed build URLs, configurable in <code>app/content.ts</code>. <span class="badge o-v3">v3 compat</span> adds sqlite-wasm. '+WKB+' adds search in a Web Worker in server-only mode, from <code>app/content.worker.ts</code>.'+S([v('runtime/client-content/hybrid.ts','23-55')]),
       '<code>comark-content/runtime</code> and an HTTP client.'],
     ['Dev', 'chokidar on local sources → local SQLite → SQL pushed over Vite HMR to the browser DB.'+S([v3('src/utils/dev.ts','33-60'), v3('src/utils/dev.ts','150-240')]),
       'Module’s own jiti copy under <code>/__NCDEV__/</code>, watcher, HMR events.'+S([v('utils/config.ts','26-63')]),
@@ -933,6 +1058,8 @@ function renderCompare(){
     ['Fixed base path, default plugins, v3 plugins', N, Y],
     ['Entry lookup, routes, app-side content', N, Y],
     ['Components, types, prerendered artifacts, dev copy', N, Y],
+    [`${WKB}<br>Worker host and fetch, <code>buildSearchIndex()</code>`, Y, N],
+    [`${WKB}<br><code>app/content.worker.ts</code>, <code>useNuxtContentWorker()</code>, worker build, public snapshots`, N, Y],
   ];
   document.getElementById('own-table').innerHTML = `<table class="cmp"><thead><tr><th>Piece</th><th>comark-content</th><th>v4 module</th></tr></thead><tbody>${own.map(r=>`<tr><th style="width:auto">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table>`;
 }
